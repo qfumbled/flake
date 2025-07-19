@@ -9,7 +9,8 @@
     workspace = {
       wallpaper = "${../../wallpapers/wallpaper.jpg}";
       iconTheme = "Papirus-Dark";
-      lookAndFeel = "org.kde.breezedark.desktop";
+      lookAndFeel = "org.kde.breeze.desktop";
+      # if you want dark mode do lookAndFeel = "org.kde.breezedark.desktop";
     };
 
     shortcuts = {
