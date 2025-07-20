@@ -7,7 +7,7 @@
     enable = true;
 
     workspace = {
-      wallpaper = "${../../wallpapers/wallpaper.jpg}";
+      wallpaper = "${../../wallpapers/nixos.jpg}";
       iconTheme = "Papirus-Dark";
       lookAndFeel = "org.kde.breezedark.desktop";
       # for dark mode change breeze to breezedark
@@ -92,4 +92,3 @@
     ];
   };
 }
-
