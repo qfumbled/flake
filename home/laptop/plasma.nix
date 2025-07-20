@@ -9,8 +9,9 @@
     workspace = {
       wallpaper = "${../../wallpapers/wallpaper.jpg}";
       iconTheme = "Papirus-Dark";
-      lookAndFeel = "org.kde.breeze.desktop";
-      # if you want dark mode do lookAndFeel = "org.kde.breezedark.desktop";
+      lookAndFeel = "org.kde.breezedark.desktop";
+      # for dark mode change breeze to breezedark
+      # light = breeze
     };
 
     shortcuts = {
@@ -80,10 +81,9 @@
             name = "org.kde.plasma.icontasks";
             config = {
               General.launchers = [
-                "applications:firefox.desktop"
                 "applications:dev.zed.Zed.desktop"
+                "applications:firefox.desktop"
                 "applications:org.kde.konsole.desktop"
-                "applications:org.kde.dolphin.desktop"
               ];
             };
           }
@@ -92,3 +92,4 @@
     ];
   };
 }
+
