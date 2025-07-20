@@ -10,5 +10,7 @@
     ./plasma.nix
     ./optimize.nix
     ./bluetooth.nix
+    ./logitech.nix
+    ./nix.nix
   ];
 }
