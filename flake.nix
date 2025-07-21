@@ -25,10 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     # arkenfox.url = "github:dwarfmaster/arkenfox-nixos";
   };
@@ -84,9 +81,8 @@
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
-        specialArgs = { inherit jovian; };
+        specialArgs = {inherit jovian;};
       };
     };
   };
 }
-
