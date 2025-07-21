@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   nix = {
     gc.automatic = false;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "root" "@wheel" ];
+      experimental-features = ["nix-command" "flakes"];
+      trusted-users = ["root" "@wheel"];
       trusted-substituters = [
         "https://cache.nixos.org/"
         "http://192.168.1.144:5000"
@@ -40,6 +43,6 @@
   # Clean nixos.label to avoid missing `self`
   system.nixos.label = lib.concatStringsSep "-" (
     (lib.sort (x: y: x < y) config.system.nixos.tags)
-    ++ [ config.system.nixos.version ]
+    ++ [config.system.nixos.version]
   );
 }

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./shell.nix
     ./zed.nix
@@ -26,9 +22,6 @@
       gh
       nh
       converseen
-      spotify
-      kdePackages.kalk
-      kdePackages.klevernotes
     ];
 
     sessionVariables = {

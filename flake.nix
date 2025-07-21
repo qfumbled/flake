@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +15,21 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    jovian = {
+      url = "github:jovian-experiments/jovian-nixos/development";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lsfg-vk-flake = {
+      url = "github:pabloaul/lsfg-vk-flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # arkenfox.url = "github:dwarfmaster/arkenfox-nixos";
   };
 
@@ -22,6 +38,9 @@
     nixpkgs,
     home-manager,
     plasma-manager,
+    jovian,
+    lsfg-vk-flake,
+    nixos-hardware,
     ...
   }: {
     nixosConfigurations = {
@@ -41,15 +60,33 @@
       desktop = nixpkgs.lib.nixosSystem {
         modules = [
           ./hosts/desktop
+          lsfg-vk-flake.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.wien = import ./home/desktop;
+            home-manager.users.poacher = import ./home/desktop;
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
       };
+
+      deck = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/deck
+          lsfg-vk-flake.nixosModules.default
+          jovian.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.poacher = import ./home/deck;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+          }
+        ];
+        specialArgs = { inherit jovian; };
+      };
     };
   };
 }
+

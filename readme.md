@@ -8,3 +8,12 @@
 
 </div>
 
+---
+
+> **Note:**
+> If you want to **remove zram**, go to `hosts/laptop/default.nix` and remove the `zramSwap` config.
+> *(Only applies if you're on the `laptop` host.)*
+
+---
+
+**TODO:** Add Stylix to the config for my KDE setup.

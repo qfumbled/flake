@@ -2,7 +2,7 @@
   imports = [
     ../common
     ./plasma.nix
-    #./vesktop.nix
+    ./vesktop.nix
   ];
 
   home = {
@@ -10,7 +10,6 @@
       protonup
       lutris
       brave
-      kdePackages.kasts
     ];
 
     sessionVariables = {

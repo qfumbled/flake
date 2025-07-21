@@ -7,11 +7,9 @@
     enable = true;
 
     workspace = {
-      wallpaper = "${../../wallpapers/nixos.jpg}";
+      wallpaper = "${../../wallpapers/black.jpg}";
       iconTheme = "Papirus-Dark";
       lookAndFeel = "org.kde.breezedark.desktop";
-      # for dark mode change breeze to breezedark
-      # light = breeze
     };
 
     shortcuts = {
@@ -54,7 +52,7 @@
       {
         opacity = "opaque";
         location = "top";
-        height = 30;
+        height = 35;
         floating = false;
         widgets = [
           "org.kde.plasma.kickoff"
@@ -81,9 +79,10 @@
             name = "org.kde.plasma.icontasks";
             config = {
               General.launchers = [
-                "applications:dev.zed.Zed.desktop"
                 "applications:firefox.desktop"
+                "applications:dev.zed.Zed.desktop"
                 "applications:org.kde.konsole.desktop"
+                "applications:org.kde.dolphin.desktop"
               ];
             };
           }
