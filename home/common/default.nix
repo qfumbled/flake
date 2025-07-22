@@ -22,6 +22,7 @@
       gh
       nh
       converseen
+      spotify
     ];
 
     sessionVariables = {
