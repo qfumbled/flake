@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +43,7 @@
     jovian,
     lsfg-vk-flake,
     nixos-hardware,
+    stylix,
     ...
   }: {
     nixosConfigurations = {
@@ -45,6 +51,7 @@
         modules = [
           ./hosts/laptop
           home-manager.nixosModules.home-manager
+          stylix.nixosModules.stylix
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -58,11 +65,12 @@
         modules = [
           ./hosts/desktop
           lsfg-vk-flake.nixosModules.default
+          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.poacher = import ./home/desktop;
+            home-manager.users.wien = import ./home/desktop;
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
@@ -73,11 +81,12 @@
           ./hosts/deck
           lsfg-vk-flake.nixosModules.default
           jovian.nixosModules.default
+          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.poacher = import ./home/deck;
+            home-manager.users.wien = import ./home/deck;
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
