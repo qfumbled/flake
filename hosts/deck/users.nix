@@ -1,7 +1,7 @@
 {pkgs, ...}: {
-  users.users.wien = {
+  users.users.xoc = {
     isNormalUser = true;
-    description = "Alexander";
+    description = "wien";
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.nushell;
   };

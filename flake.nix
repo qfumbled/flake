@@ -9,8 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:danth/stylix";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,8 +31,6 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-
-    # arkenfox.url = "github:dwarfmaster/arkenfox-nixos";
   };
 
   outputs = inputs @ {
@@ -43,7 +41,7 @@
     jovian,
     lsfg-vk-flake,
     nixos-hardware,
-    stylix,
+    lanzaboote,
     ...
   }: {
     nixosConfigurations = {
@@ -51,26 +49,11 @@
         modules = [
           ./hosts/laptop
           home-manager.nixosModules.home-manager
-          stylix.nixosModules.stylix
+          lanzaboote.nixosModules.lanzaboote
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.wien = import ./home/laptop;
-            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
-          }
-        ];
-      };
-
-      desktop = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hosts/desktop
-          lsfg-vk-flake.nixosModules.default
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.wien = import ./home/desktop;
+            home-manager.users.xoc = import ./home/laptop;
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
@@ -81,16 +64,15 @@
           ./hosts/deck
           lsfg-vk-flake.nixosModules.default
           jovian.nixosModules.default
-          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.wien = import ./home/deck;
+            home-manager.users.xoc = import ./home/deck;
             home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
           }
         ];
-        specialArgs = {inherit jovian;};
+        specialArgs = { inherit jovian; };
       };
     };
   };

@@ -9,8 +9,8 @@
   programs.home-manager.enable = true;
 
   home = {
-    username = "wien";
-    homeDirectory = "/home/wien";
+    username = "xoc";
+    homeDirectory = "/home/xoc";
 
     packages = with pkgs; [
       fastfetch

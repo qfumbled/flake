@@ -3,8 +3,9 @@
     ../common
     /etc/nixos/hardware-configuration.nix
     ./networking.nix
-    ./users.nix
+    ../../system/core/default.nix
     ./gaming.nix
     ./plasma.nix
+    ../../system/core/deck-default.nix
   ];
 }
