@@ -1,16 +1,6 @@
-<div align="center">
-
-# My Dotfiles for NixOS
-
-<img alt="Nix snowflake" src="https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-colours.svg" width="48">
-
-</div>
+## hi welcome to my dotfiles if you wanna use these i'd not recommend you to use it for now im just expermenting with stuff prob in a few months or so it might be recommended to use
+## also im revamping stuff
 
 
-
-> **Note:** I'm using [Lanzaboote](https://github.com/nix-community/lanzaboote), so you might need to follow their [Quick Start Guide](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md) to get it working.
-> **This warning only applies to laptop hosts** — there's a risk your system could become unbootable during setup.
-### todo
-have my laptop have niri or hyprland do revamps ngl remap
-steam deck kde with kde-hm [check]
----
+Lanzaboote [yes]
+tpm support [yes]
