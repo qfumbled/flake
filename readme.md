@@ -6,7 +6,7 @@
 
 </div>
 
----
+
 
 > **Note:** I'm using [Lanzaboote](https://github.com/nix-community/lanzaboote), so you might need to follow their [Quick Start Guide](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md) to get it working.  
 > **This warning only applies to laptop hosts** — there's a risk your system could become unbootable during setup.
