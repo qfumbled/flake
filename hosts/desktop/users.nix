@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  users.users.xoc = {
+  users.users.dulish = {
     isNormalUser = true;
     description = "wien";
     extraGroups = ["networkmanager" "wheel"];

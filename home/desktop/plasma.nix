@@ -1,14 +1,8 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    papirus-icon-theme
-  ];
-
+{...}: {
   programs.plasma = {
     enable = true;
 
     workspace = {
-      wallpaper = "${../../wallpapers/wallpaper.jpg}";
-      iconTheme = "Papirus-Dark";
       lookAndFeel = "org.kde.breezedark.desktop";
     };
 
@@ -51,41 +45,27 @@
     panels = [
       {
         opacity = "opaque";
-        location = "top";
-        height = 30;
+        location = "bottom";
         floating = false;
         widgets = [
           "org.kde.plasma.kickoff"
           "org.kde.plasma.panelspacer"
           {
-            digitalClock = {
-              date.enable = false;
-            };
-          }
-          "org.kde.plasma.panelspacer"
-          "org.kde.plasma.systemtray"
-        ];
-      }
-
-      {
-        opacity = "opaque";
-        location = "bottom";
-        height = 48;
-        floating = true;
-        hiding = "autohide";
-        lengthMode = "fit";
-        widgets = [
-          {
             name = "org.kde.plasma.icontasks";
             config = {
               General.launchers = [
                 "applications:firefox.desktop"
+                "applications:vesktop.desktop"
+                "applications:steam.desktop"
                 "applications:dev.zed.Zed.desktop"
                 "applications:org.kde.konsole.desktop"
                 "applications:org.kde.dolphin.desktop"
               ];
             };
           }
+          "org.kde.plasma.panelspacer"
+          "org.kde.plasma.systemtray"
+          "org.kde.plasma.digitalclock"
         ];
       }
     ];

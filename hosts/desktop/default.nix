@@ -2,9 +2,11 @@
   imports = [
     ../common
     /etc/nixos/hardware-configuration.nix
+    ./nvidia.nix
+    ./gaming.nix
     ./networking.nix
     ./users.nix
-    ./gaming.nix
-    ./plasma.nix
+    ./misc.nix
+    ./lanzaboote.nix
   ];
 }

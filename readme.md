@@ -3,4 +3,7 @@
 
 
 Lanzaboote [yes]
-tpm support [yes]
+tpm [yes]
+remap files [not right now]
+Niri WM [not right now] 
+nixvim [soon]

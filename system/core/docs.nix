@@ -1,3 +1,0 @@
-{
-  documentation.man.enable = false;
-}
