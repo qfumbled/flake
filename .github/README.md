@@ -7,3 +7,9 @@
 </div>
 
 ---
+
+# todo
+## add stylix 
+## add nixvim configuration 
+## make niri config work
+## should prob make my owm wallpaper daemon in rust
