@@ -13,3 +13,5 @@
 ## add nixvim configuration 
 ## make niri config work
 ## should prob make my owm wallpaper daemon in rust
+## look more into pre-commit-hooks
+##  in home-manager add opt also you get to choose which app you wanna use 
