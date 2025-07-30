@@ -1,11 +1,12 @@
-name: "Build"
+name: Build
+
 on:
   workflow_dispatch:
   push:
     paths:
       - "**.nix"
       - "flake.lock"
-      - ".github/workflows/ci.yaml"
+      - ".github/workflows/ci.yml"
 
 jobs:
   build-config:
@@ -44,19 +45,5 @@ jobs:
           purge: false
 
       - name: Build NixOS Configuration
-        if: ${{ contains(toJSON(matrix), 'nixosCfgKey') && matrix.nixosCfgKey != '' }}
+        if: ${{ matrix.nixosCfgKey != '' }}
         run: nix build .#nixosConfigurations.${{ matrix.nixosCfgKey }}.config.system.build.toplevel
-
-  check_flake:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
-
-      - name: Check Flake
-        run: nix flake check --keep-going

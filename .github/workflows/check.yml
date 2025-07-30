@@ -9,20 +9,16 @@ on:
       - ".github/workflows/check.yml"
 
 jobs:
-  check-flake:
-    runs-on: ubuntu-latest
-
+  check_flake:
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 1
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31
         with:
-          logger: pretty
+          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
 
       - name: Check Flake
-        run: nix flake check --accept-flake-config --extra-experimental-features pipe-operators
+        run: nix flake check --keep-going --show-trace
