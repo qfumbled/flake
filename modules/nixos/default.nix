@@ -1,0 +1,25 @@
+{
+  imports = [
+    ./bluetooth
+    ./documentation
+    ./gnome
+    ./locale
+    ./niri
+    ./pkgs
+    ./programs
+    ./system
+    ./tpm
+    ./boot
+    ./flatpak
+    ./graphics
+    ./network
+    ./nix
+    ./portal
+    ./qt
+    ./systemd
+    ./user
+    ./audio
+    ./lanzaboote
+    ./zram
+  ];
+}
