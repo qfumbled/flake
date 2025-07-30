@@ -1,0 +1,20 @@
+name: flake-update
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 0"
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v17
+      - name: Update flake lock
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          nix flake update --commit-lock-file
+          git push origin HEAD:${{ github.ref_name }}
