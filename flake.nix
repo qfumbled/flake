@@ -8,6 +8,8 @@
       url = "github:nix-community/impermanence";
     };
 
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +55,7 @@
     chaotic,
     lanzaboote,
     impermanence,
+    zen-browser,
     ...
   }: let
     system = "x86_64-linux";
@@ -78,6 +81,11 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/laptop;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs system;
+            };
+
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];
@@ -100,6 +108,11 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/desktop;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs system;
+            };
+
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];
@@ -123,6 +136,11 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/deck;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs system;
+            };
+
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];

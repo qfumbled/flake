@@ -1,11 +1,16 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}: let
   app2unit = pkgs.callPackage ../../packages/app2unit {};
 in {
   imports = [
     ./shell.nix
     ./zed.nix
-    ./firefox.nix
     ./git.nix
+    # gotta make this work ./zen.nix
   ];
 
   programs.home-manager.enable = true;
@@ -25,6 +30,8 @@ in {
       gh
       rar
       app2unit
+      vial
+      inputs.zen-browser.packages."${system}".default
     ];
 
     sessionVariables = {

@@ -29,7 +29,6 @@
     };
 
     system.activationScripts.createPasswordFile = {
-      deps = [];
       text = ''
         echo "[+] Ensuring password file exists at /persist/passwords/user"
         install -d -m 700 -o root -g root /persist/passwords
