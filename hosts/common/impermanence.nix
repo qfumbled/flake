@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+{...}: {
   config = {
     users.users.monaco = {
       isNormalUser = true;
