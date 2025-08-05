@@ -34,7 +34,7 @@
             config = {
               General.launchers = [
                 "applications:steam.desktop"
-                "applications:firefox.desktop"
+                "applications:zen-beta.desktop"
                 "applications:dev.zed.Zed.desktop"
                 "applications:org.kde.konsole.desktop"
                 "applications:org.kde.dolphin.desktop"

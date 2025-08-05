@@ -54,7 +54,7 @@
             name = "org.kde.plasma.icontasks";
             config = {
               General.launchers = [
-                "applications:firefox.desktop"
+                "applications:zen-beta.desktop"
                 "applications:steam.desktop"
                 "applications:dev.zed.Zed.desktop"
                 "applications:org.kde.konsole.desktop"
