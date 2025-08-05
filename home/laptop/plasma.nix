@@ -10,14 +10,9 @@
     workspace = {
       wallpaper = "${../../wallpapers/mountains.jpg}";
       iconTheme = "Papirus-Dark";
+      cursor.theme = "Bibata-Modern-Ice";
       lookAndFeel = "org.kde.breeze.desktop";
-
-      cursor = {
-        theme = "Bibata-Modern-Ice";
-        size = 24;
-      };
     };
-
     shortcuts = {
       kwin = {
         "Window Fullscreen" = "Meta+F";
@@ -58,7 +53,7 @@
       {
         opacity = "opaque";
         location = "top";
-        height = 35;
+        height = 32;
         floating = false;
         widgets = [
           "org.kde.plasma.kickoff"
