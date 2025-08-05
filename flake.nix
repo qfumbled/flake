@@ -1,13 +1,11 @@
 {
-  description = "NixOS configuration for grovetender with home-manager, nixvim, and other flakes";
+  description = "TODO";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+    impermanence = {
+      url = "github:nix-community/impermanence";
     };
 
     home-manager = {
@@ -15,84 +13,128 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+    };
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+    };
+
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    jovian = {
+      url = "github:jovian-experiments/jovian-nixos/development";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote.url = "github:nix-community/lanzaboote";
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    lsfg-vk-flake = {
+      url = "github:pabloaul/lsfg-vk-flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    anyrun.url = "github:anyrun-org/anyrun";
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-compat.url = "github:edolstra/flake-compat";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, flake-parts, nix-flatpak, chaotic, niri, lanzaboote, nixvim, nur, ... }: let
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    plasma-manager,
+    jovian,
+    lsfg-vk-flake,
+    nix-flatpak,
+    chaotic,
+    lanzaboote,
+    impermanence,
+    ...
+  }: let
     system = "x86_64-linux";
-    username = "wieners";
-    host = "grovetender";
-    profile = "grovetender";
 
-    mkSystem = gpu: name: modules: nixpkgs.lib.nixosSystem {
+    pkgs = import nixpkgs {
       inherit system;
-      specialArgs = {
-        inherit inputs username host profile gpu;
-      };
-      modules = modules ++ [
-        ./modules/drivers/${gpu}.nix
-      ];
+      config.allowUnfree = true;
     };
   in {
+    nixosModules.lanzaboote = import lanzaboote;
+
     nixosConfigurations = {
-      grovetender = nixpkgs.lib.nixosSystem {
+      laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {
-          inherit (nixpkgs) lib inputs overlays;
-          gpu = "intel";
-        };
         modules = [
-          ./hosts/grovetender
-          ./modules/drivers/intel.nix
-          nixvim.nixosModules.nixvim
-          home-manager.nixosModules.home-manager
-          nix-flatpak.nixosModules.nix-flatpak
+          ./hosts/laptop
+          impermanence.nixosModules.impermanence
           chaotic.nixosModules.default
-          niri.nixosModules.niri
           lanzaboote.nixosModules.lanzaboote
+          nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.wieners = import ./home/profiles/grovetender.nix;
+            home-manager.users.monaco = import ./home/laptop;
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+            ];
           }
         ];
+        pkgs = pkgs;
       };
 
-      amd = mkSystem "amd" "amd" [ ./profiles/amd ];
-      nvidia = mkSystem "nvidia" "nvidia" [ ./profiles/nvidia ];
-      nvidia-prime = mkSystem "nvidia" "nvidia-prime" [ ./profiles/nvidia-prime ];
-      intel = mkSystem "intel" "intel" [ ./profiles/intel ];
+      desktop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/desktop
+          impermanence.nixosModules.impermanence
+          lanzaboote.nixosModules.lanzaboote
+          chaotic.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
+          lsfg-vk-flake.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.monaco = import ./home/desktop;
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+            ];
+          }
+        ];
+        pkgs = pkgs;
+      };
+
+      deck = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/deck
+          impermanence.nixosModules.impermanence
+          chaotic.nixosModules.default
+          lsfg-vk-flake.nixosModules.default
+          jovian.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
+          lanzaboote.nixosModules.lanzaboote
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.monaco = import ./home/deck;
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+            ];
+          }
+        ];
+        specialArgs = {
+          inherit jovian;
+        };
+        pkgs = pkgs;
+      };
     };
+
+    packages = import ./lib/systems.nix {inherit self;};
   };
 }
