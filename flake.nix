@@ -1,5 +1,5 @@
 {
-  description = "TODO";
+  description = "You don't use NixOS You are the NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

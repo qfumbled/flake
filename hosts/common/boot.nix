@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   boot = {
     kernelPackages = pkgs.linuxPackages_cachyos;
 
@@ -8,7 +8,16 @@
       timeout = 15;
     };
 
-    plymouth.enable = true;
+    plymouth = {
+      enable = true;
+      theme = "rings";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = ["rings"];
+        })
+      ];
+    };
 
     kernelParams = [
       "quiet"
