@@ -4,9 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      time: "10:30"
     open-pull-requests-limit: 10
     reviewers:
       - qfumbled
+      - monegasque
     assignees:
       - qfumbled
+      - monegasque
