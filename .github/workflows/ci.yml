@@ -48,7 +48,7 @@ jobs:
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
-          gc-max-store-size-linux: 1073741824
+          gc-max-store-size-linux: 21474836480
           purge: false
 
       - name: Build NixOS Configuration

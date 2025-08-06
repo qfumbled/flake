@@ -7,12 +7,12 @@
 
   opt = {
     zram.enable = true;
+    zram.size = "5G";
     tpm2.enable = true;
     vram.enable = true;
     lanzaboote = {
       enable = true;
-      # optionally:
-      # pkiBundle = "/var/lib/sbctl";
+      pkiBundle = "/var/lib/sbctl";
     };
   };
 }
