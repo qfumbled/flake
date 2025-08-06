@@ -4,18 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-    reviewers:
-      - qfumbled
-    assignees:
-      - qfumbled
-    commit-message:
-      prefix: chore
-      include: scope
-
-  - package-ecosystem: nix
-    directory: "/"
-    schedule:
-      interval: daily
+      time: "05:00" # 5:00 AM in New York time
+      timezone: "America/New_York"
     reviewers:
       - qfumbled
     assignees:
