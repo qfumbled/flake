@@ -3,22 +3,33 @@ name: flake-update
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *" # daily at 5:00 AM New York time
+    - cron: "0 9 * * *" # 5 AM New York time = 9 AM UTC
 
 jobs:
   lockfile:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v19
 
-      - name: Update flake.lock
+      - name: Clone repo fresh
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo
+
+      - name: Reinitialize git repo to fix permissions
+        run: |
+          cd repo
+          rm -rf .git
+          git init
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git fetch origin
+          git reset origin/${{ github.ref_name }}
+
+      - name: Update flake.lock and push
+        run: |
+          cd repo
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
           nix flake update --commit-lock-file
           git add flake.lock
           git commit -m "(chore) update flake.lock" || echo "No changes to commit"
