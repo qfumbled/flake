@@ -1,14 +1,16 @@
 {
   config,
-  pkgs,
+  lib,
   ...
-}: {
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024; # Size in MiB (16 GiB)
-    }
-  ];
+}:
+with lib; let
+  cfg = config.opt.zram;
+in {
+  options.opt.zram = {
+    enable = lib.mkEnableOption "Enable zram-based swap";
+  };
 
-  zramSwap.enable = true;
+  config = lib.mkIf cfg.enable {
+    zramSwap.enable = true;
+  };
 }

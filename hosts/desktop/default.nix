@@ -7,4 +7,16 @@
     ./networking.nix
     ./misc.nix
   ];
+
+  opt = {
+    zram.enable = false;
+
+    tpm2.enable = true;
+
+    lanzaboote = {
+      enable = true;
+      # optionally override the default pkiBundle path:
+      # pkiBundle = "/var/lib/sbctl";
+    };
+  };
 }
