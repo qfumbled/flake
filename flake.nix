@@ -158,6 +158,6 @@
       inherit pkgs;
     };
 
-    packages = import ./lib/systems.nix {inherit self;};
+    packages = import ./lib/systems.nix {inherit self system;};
   };
 }
