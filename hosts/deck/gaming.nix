@@ -12,7 +12,7 @@
       enable = true;
       autoStart = true;
       updater.splash = "jovian";
-      user = "poacher";
+      user = "monaco";
       desktopSession = "plasma";
     };
 
@@ -24,7 +24,7 @@
 
     decky-loader = {
       enable = true;
-      user = "poacher";
+      user = "monaco";
     };
   };
 
