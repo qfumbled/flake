@@ -3,7 +3,7 @@ name: Validate Nix Flake
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 4 * * *" # Run daily at 12am EDT
+    - cron: "0 4 * * *" # 12 AM EDT / 4 AM UTC
   push:
     paths:
       - "**.nix"
@@ -24,4 +24,4 @@ jobs:
           logger: pretty
 
       - name: Check Flake
-        run: nix flake check --accept-flake-config --extra-experimental-features 'nix-command flakes pipe-operators'
+        run: nix flake check --accept-flake-config --extra-experimental-features 'nix-command flakes pipe-operators' && nix-shell -p cachix

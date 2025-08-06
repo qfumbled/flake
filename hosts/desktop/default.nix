@@ -10,7 +10,7 @@
 
   opt = {
     zram.enable = false;
-
+    vram.enable = false;
     tpm2.enable = true;
 
     lanzaboote = {

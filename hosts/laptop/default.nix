@@ -8,6 +8,7 @@
   opt = {
     zram.enable = true;
     tpm2.enable = true;
+    vram.enable = true;
     lanzaboote = {
       enable = true;
       # optionally:

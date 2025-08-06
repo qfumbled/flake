@@ -20,5 +20,6 @@
     ./systemd.nix
     ./zram.nix
     ./impermanence.nix
+    ./vram.nix
   ];
 }

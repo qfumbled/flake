@@ -1,3 +1,3 @@
 inputs: {
-  mkSystem = import ./systems.nix inputs;
+  mkSystem = import ./systems.nix ./shells.nix inputs;
 }
