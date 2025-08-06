@@ -1,15 +1,13 @@
 {...}: {
   imports = [
-    ./audio
     ./bootloader
     ./locales
-    ./misc
     ./networking
     ./plasma
-    ./users
+    ./user
     ./lanzaboote
     ./flatpak
-    ./docs
+    ./documentation
     ./nix
     ./bluetooth
     ./pkgs
@@ -20,5 +18,8 @@
     ./systemd
     ./zram
     ./impermanence
+    ./qt
+    ./security
+    ./services
   ];
 }

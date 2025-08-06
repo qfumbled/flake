@@ -12,6 +12,7 @@
     zram.enable = false;
     flatpak.enable = true;
     tpm2.enable = true;
+    pipewire.enable = true;
 
     lanzaboote = {
       enable = true;
