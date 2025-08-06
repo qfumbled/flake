@@ -4,10 +4,22 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-    open-pull-requests-limit: 10
     reviewers:
       - qfumbled
-      - monegasque
     assignees:
       - qfumbled
-      - monegasque
+    commit-message:
+      prefix: chore
+      include: scope
+
+  - package-ecosystem: nix
+    directory: "/"
+    schedule:
+      interval: daily
+    reviewers:
+      - qfumbled
+    assignees:
+      - qfumbled
+    commit-message:
+      prefix: chore
+      include: scope
