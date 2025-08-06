@@ -460,6 +460,7 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_3",
         "plasma-manager": "plasma-manager",
+        "rust-overlay": "rust-overlay_3",
         "zen-browser": "zen-browser"
       }
     },
@@ -497,6 +498,26 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "69dfe029679e73b8d159011c9547f6148a85ca6b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_3": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754448563,
+        "narHash": "sha256-JdgvzorJa4h2RSjIUj+rEYDCdQl1ubqoS8WebYJjQ2s=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "1bee06db858d83014983af40e9d1cfca96c32f7f",
         "type": "github"
       },
       "original": {
