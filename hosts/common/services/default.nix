@@ -1,9 +1,6 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
+{ lib, config, pkgs, ... }:
+
+let
   inherit (lib) mkIf mkEnableOption;
 in {
   options.opt = {
@@ -14,7 +11,6 @@ in {
     services = {
       dbus.enable = true;
       gvfs.enable = true;
-      blueman.enable = true;
       upower.enable = true;
 
       logind = {
