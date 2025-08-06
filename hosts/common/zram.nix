@@ -1,26 +1,32 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
   cfg = config.opt.zram;
 in {
   options.opt.zram = {
-    enable = lib.mkEnableOption "Enable zram-based swap";
+    enable = mkEnableOption "Enable zram-based swap";
     size = mkOption {
-      type = with lib.types; nonEmptyStr;
+      type = types.str;
       default = "5G";
-      description = "Size of the zram swap device";
+      description = "Size of the zram swap device (e.g. 5G, 4096M)";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     zramSwap.enable = true;
-    # Set the size explicitly using a systemd service override
+
     systemd.services."zram-swap".serviceConfig = {
       Environment = "ZRAM_SIZE=${cfg.size}";
     };
+
+    swapDevices = [
+      {
+        device = "/var/lib/swapfile";
+        size = 15 * 1024; # size in MiB
+      }
+    ];
   };
 }

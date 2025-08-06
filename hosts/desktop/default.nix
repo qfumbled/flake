@@ -10,7 +10,7 @@
 
   opt = {
     zram.enable = false;
-    zram.size = "0G";
+    flatpak.enable = true;
     vram.enable = false;
     tpm2.enable = true;
 

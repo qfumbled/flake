@@ -16,6 +16,7 @@
     kernelParams = [
       "quiet"
       "splash"
+      "fastboot"
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
