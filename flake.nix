@@ -1,11 +1,16 @@
 {
-  description = "You don't use NixOS You are the NixOS";
+  description = "TODO";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     impermanence = {
       url = "github:nix-community/impermanence";
+    };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -56,6 +61,7 @@
     lanzaboote,
     impermanence,
     zen-browser,
+    rust-overlay,
     ...
   }: let
     system = "x86_64-linux";
@@ -63,6 +69,7 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [inputs.rust-overlay.overlays.default];
     };
   in {
     nixosModules.lanzaboote = import lanzaboote;
@@ -81,11 +88,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/laptop;
-
             home-manager.extraSpecialArgs = {
               inherit inputs system;
             };
-
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];
@@ -108,11 +113,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/desktop;
-
             home-manager.extraSpecialArgs = {
               inherit inputs system;
             };
-
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];
@@ -136,11 +139,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.monaco = import ./home/deck;
-
             home-manager.extraSpecialArgs = {
               inherit inputs system;
             };
-
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
             ];
@@ -151,6 +152,10 @@
         };
         pkgs = pkgs;
       };
+    };
+
+    devShells.${system} = import ./lib/shells.nix {
+      inherit pkgs;
     };
 
     packages = import ./lib/systems.nix {inherit self;};
