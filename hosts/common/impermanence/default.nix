@@ -1,10 +1,18 @@
-{...}: {
+{
+  config,
+  pkgs,
+  ...
+}: let
+  username = "monaco";
+in {
   config = {
-    users.users.monaco = {
+    users.users.${username} = {
       isNormalUser = true;
       uid = 1000;
       hashedPasswordFile = "/persist/passwords/user";
     };
+
+    services.accounts-daemon.enable = true;
 
     environment.persistence."/persist" = {
       directories = [
@@ -16,6 +24,7 @@
         "/var/log"
         "/var/lib/nixos"
         "/persist/passwords"
+        "/var/lib/AccountsService"
       ];
       files = [
         "/etc/machine-id"
@@ -23,6 +32,15 @@
         "/persist/passwords/user"
       ];
     };
+
+    environment.etc."AccountsService/icons/${username}".source =
+      ./pfp.jpg;
+
+    environment.etc."AccountsService/users/${username}".text = ''
+      [User]
+      Icon=/var/lib/AccountsService/icons/${username}
+      SystemAccount=false
+    '';
 
     system.activationScripts.createPasswordFile = {
       text = ''

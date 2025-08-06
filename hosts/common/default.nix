@@ -1,25 +1,24 @@
 {...}: {
   imports = [
-    ./audio.nix
-    ./boot.nix
-    ./locales.nix
-    ./misc.nix
-    ./networking.nix
-    ./plasma.nix
-    ./users.nix
-    ./lanzaboote.nix
-    ./flatpak.nix
-    ./docs.nix
-    ./nix.nix
-    ./bluetooth.nix
-    ./pkgs.nix
-    ./portal.nix
-    ./programs.nix
-    ./system.nix
-    ./tpm.nix
-    ./systemd.nix
-    ./zram.nix
-    ./impermanence.nix
-    ./vram.nix
+    ./audio
+    ./bootloader
+    ./locales
+    ./misc
+    ./networking
+    ./plasma
+    ./users
+    ./lanzaboote
+    ./flatpak
+    ./docs
+    ./nix
+    ./bluetooth
+    ./pkgs
+    ./portal
+    ./programs
+    ./system
+    ./tpm
+    ./systemd
+    ./zram
+    ./impermanence
   ];
 }

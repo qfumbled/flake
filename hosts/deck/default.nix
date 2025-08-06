@@ -11,7 +11,6 @@
     zram.enable = false;
     flatpak.enable = true;
     tpm2.enable = true;
-    vram.enable = false;
     lanzaboote = {
       enable = true;
     };

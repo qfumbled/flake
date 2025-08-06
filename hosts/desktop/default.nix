@@ -11,7 +11,6 @@
   opt = {
     zram.enable = false;
     flatpak.enable = true;
-    vram.enable = false;
     tpm2.enable = true;
 
     lanzaboote = {
