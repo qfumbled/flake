@@ -11,7 +11,7 @@
       wallpaper = "${../../wallpapers/wallhaven2.jpg}";
       iconTheme = "Papirus-Dark";
       cursor.theme = "Bibata-Modern-Ice";
-      lookAndFeel = "org.kde.breezedark.desktop";
+      lookAndFeel = "org.kde.breeze.desktop";
     };
     shortcuts = {
       kwin = {
