@@ -78,7 +78,6 @@
         inherit system;
         modules = [
           ./hosts/laptop
-          inputs.spicetify-nix.nixosModules.default
           impermanence.nixosModules.impermanence
           chaotic.nixosModules.default
           lanzaboote.nixosModules.lanzaboote

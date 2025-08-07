@@ -1,22 +1,23 @@
-programs.spicetify =
-let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in
 {
-  enable = true;
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [inputs.spicetify-nx.homeManagerModules.default];
 
-  enabledExtensions = with spicePkgs.extensions; [
-    adblock
-    hidePodcasts
-    shuffle
-  ];
+  programs.spicetify = let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  in {
+    enable = true;
+    spotifyPackage = pkgs.spotify;
+    spicetifyPackage = pkgs.spicetify-cli;
 
-  enabledCustomApps = with spicePkgs.apps; [
-    newReleases
-    ncsVisualizer
-  ];
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      shuffle
+    ];
 
-  enabledSnippets = with spicePkgs.snippets; [
-    pointer
-  ];
+    theme = spicePkgs.themes.comfy;
+  };
 }
