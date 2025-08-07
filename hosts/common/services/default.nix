@@ -1,17 +1,23 @@
-{ lib, config, pkgs, ... }:
-
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf mkEnableOption;
 in {
   options.opt = {
     pipewire = mkEnableOption "Enable PipeWire audio backend";
+    upower = mkEnableOption "Enable UPower service";
   };
 
   config = {
     services = {
       dbus.enable = true;
       gvfs.enable = true;
-      upower.enable = true;
+
+      # Conditional upower service enablement
+      upower.enable = mkIf config.opt.upower true;
 
       logind = {
         powerKey = "suspend";
