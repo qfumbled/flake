@@ -18,10 +18,12 @@
       shuffle
     ];
 
-    # Use the custom theme
-    theme = "custom";
+    theme = "custom"; # Use custom theme
 
-    # Declare the custom color scheme directly in Nix
+    # Define the path to the custom.css file
+    customThemeFile = ./custom.css;
+
+    # Apply the custom theme by pointing to the custom.css
     customColorScheme = {
       scheme = "test";
       author = "kevin";

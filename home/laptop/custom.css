@@ -1,0 +1,10 @@
+/* custom.css */
+body {
+    --background-color: #f5f3ef;
+    --foreground-color: #5c5c5c;
+    --accent-color: #b66467;
+    --highlight-color: #66858f;
+    --button-color: #b88757;
+    --button-hover-color: #76b05c;
+    /* Define all other color scheme variables as per your colors */
+}
