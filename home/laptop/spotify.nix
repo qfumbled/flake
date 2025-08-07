@@ -18,10 +18,10 @@
       shuffle
     ];
 
-    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
+    # Set theme to custom
+    theme = "custom";
 
-    colorScheme = "custom"; # Use 'custom' color scheme
-
+    # Declare the full custom color scheme
     customColorScheme = {
       scheme = "test";
       author = "kevin";
@@ -41,6 +41,27 @@
       base0D = "66858f";
       base0E = "9661cc";
       base0F = "aaa9a9";
+
+      # Specific UI element customizations
+      text = "base05";
+      subtext = "base05";
+      main = "base00";
+      main-elevated = "base02";
+      sidebar = "base01";
+      highlight = "base01";
+      highlight-elevated = "base02";
+      player = "base01";
+      card = "base02";
+      shadow = "base00";
+      selected-row = "base05";
+      button = "base05";
+      button-active = "base05";
+      button-disabled = "base04";
+      tab-active = "base02";
+      notification = "base02";
+      notification-error = "base08";
+      equalizer = "base0B";
+      misc = "base02";
     };
   };
 }
