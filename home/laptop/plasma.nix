@@ -8,10 +8,10 @@
     enable = true;
 
     workspace = {
-      wallpaper = "${../../wallpapers/wallhaven.jpg}";
+      wallpaper = "${../../wallpapers/wallhaven2.jpg}";
       iconTheme = "Papirus-Dark";
       cursor.theme = "Bibata-Modern-Ice";
-      lookAndFeel = "org.kde.breeze.desktop";
+      lookAndFeel = "org.kde.breezedark.desktop";
     };
     shortcuts = {
       kwin = {

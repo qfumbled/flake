@@ -3,6 +3,7 @@
     ../common
     ./plasma.nix
     ./vesktop.nix
+    ./spotify.nix
   ];
 
   home = {
