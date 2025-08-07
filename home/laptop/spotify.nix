@@ -60,10 +60,27 @@
       shuffle
     ];
 
-    theme = spicePkgs.themes.custom; # Explicitly use 'custom' theme
+    theme = "custom"; # Use 'custom' instead of pre-defined themes
 
-    colorScheme = test.scheme; # You can switch between 'test' or 'far'
+    colorScheme = test.scheme; # Switch between 'test' or 'far'
 
-    customColorScheme = test; # Set to 'test' or 'far'
+    customColorScheme = {
+      base00 = test.base00;
+      base01 = test.base01;
+      base02 = test.base02;
+      base03 = test.base03;
+      base04 = test.base04;
+      base05 = test.base05;
+      base06 = test.base06;
+      base07 = test.base07;
+      base08 = test.base08;
+      base09 = test.base09;
+      base0A = test.base0A;
+      base0B = test.base0B;
+      base0C = test.base0C;
+      base0D = test.base0D;
+      base0E = test.base0E;
+      base0F = test.base0F;
+    };
   };
 }
