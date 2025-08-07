@@ -8,8 +8,10 @@
       url = "github:nix-community/impermanence";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    stylix.url = "github:danth/stylix";
+
+    jovian = {
+      url = "github:jovian-experiments/jovian-nixos/development";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -32,15 +34,15 @@
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
 
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-    };
-
-    jovian = {
-      url = "github:jovian-experiments/jovian-nixos/development";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lsfg-vk-flake = {
@@ -54,14 +56,15 @@
     nixpkgs,
     home-manager,
     plasma-manager,
-    jovian,
     lsfg-vk-flake,
     nix-flatpak,
     chaotic,
     lanzaboote,
     impermanence,
     zen-browser,
-    rust-overlay,
+    jovian,
+    stylix,
+    spicetify-nix,
     ...
   }: let
     system = "x86_64-linux";
@@ -69,7 +72,6 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [inputs.rust-overlay.overlays.default];
     };
   in {
     nixosModules.lanzaboote = import lanzaboote;
@@ -81,6 +83,7 @@
           ./hosts/laptop
           impermanence.nixosModules.impermanence
           chaotic.nixosModules.default
+          stylix.homeManagerModules.stylix
           lanzaboote.nixosModules.lanzaboote
           nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager
@@ -123,41 +126,6 @@
         ];
         pkgs = pkgs;
       };
-
-      deck = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hosts/deck
-          impermanence.nixosModules.impermanence
-          chaotic.nixosModules.default
-          lsfg-vk-flake.nixosModules.default
-          jovian.nixosModules.default
-          nix-flatpak.nixosModules.nix-flatpak
-          lanzaboote.nixosModules.lanzaboote
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.monaco = import ./home/deck;
-            home-manager.extraSpecialArgs = {
-              inherit inputs system;
-            };
-            home-manager.sharedModules = [
-              plasma-manager.homeManagerModules.plasma-manager
-            ];
-          }
-        ];
-        specialArgs = {
-          inherit jovian;
-        };
-        pkgs = pkgs;
-      };
     };
-
-    devShells.${system} = import ./lib/shells.nix {
-      inherit pkgs;
-    };
-
-    packages = import ./lib/systems.nix {inherit self system;};
   };
 }

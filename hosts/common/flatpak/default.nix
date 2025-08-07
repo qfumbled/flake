@@ -7,7 +7,7 @@
   cfg = config.opt.flatpak;
 in {
   options.opt.flatpak = {
-    enable = lib.mkEnableOption "Enable flatpak service with flathub-beta and org.vinegarhq.Sober";
+    enable = lib.mkEnableOption "Enable flatpak service with flathub and org.vinegarhq.Sober";
   };
 
   config = lib.mkIf cfg.enable {
@@ -16,14 +16,14 @@ in {
       update.onActivation = true;
       remotes = [
         {
-          name = "flathub-beta";
-          location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
+          name = "flathub";
+          location = "https://flathub.org/repo/flathub.flatpakrepo";
         }
       ];
       packages = [
         {
           appId = "org.vinegarhq.Sober";
-          origin = "flathub-beta";
+          origin = "flathub";
         }
       ];
     };
