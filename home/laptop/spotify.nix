@@ -23,8 +23,6 @@
     colorScheme = "custom"; # Use 'custom' color scheme
 
     customColorScheme = {
-      scheme = "test";
-      author = "kevin";
       base00 = "f5f3ef";
       base01 = "e6e5e4";
       base02 = "cccbca";
