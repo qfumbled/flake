@@ -13,9 +13,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - hostName: deck
-            nixosCfgKey: deck
-            os-label: ubuntu-latest
           - hostName: desktop
             nixosCfgKey: desktop
             os-label: ubuntu-latest
