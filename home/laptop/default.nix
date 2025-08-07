@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ../common
-    ./stylix
+    ./spotify.nix
     ./plasma.nix
   ];
 

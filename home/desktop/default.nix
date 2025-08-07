@@ -9,7 +9,7 @@
     packages = with pkgs; [
       protonup
       heroic
-      brave
+      bibata-cursors
     ];
 
     sessionVariables = {

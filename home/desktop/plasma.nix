@@ -4,6 +4,7 @@
 
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
+      cursor.theme = "Bibata-Modern-Classic";
     };
 
     shortcuts = {

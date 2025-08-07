@@ -8,7 +8,7 @@
     enable = true;
 
     workspace = {
-      wallpaper = "${../../wallpapers/mountains.jpg}";
+      wallpaper = "${../../wallpapers/wallhaven.jpg}";
       iconTheme = "Papirus-Dark";
       cursor.theme = "Bibata-Modern-Ice";
       lookAndFeel = "org.kde.breeze.desktop";

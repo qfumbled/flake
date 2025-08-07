@@ -8,8 +8,6 @@
       url = "github:nix-community/impermanence";
     };
 
-    stylix.url = "github:danth/stylix";
-
     jovian = {
       url = "github:jovian-experiments/jovian-nixos/development";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,7 +61,6 @@
     impermanence,
     zen-browser,
     jovian,
-    stylix,
     spicetify-nix,
     ...
   }: let
@@ -81,9 +78,9 @@
         inherit system;
         modules = [
           ./hosts/laptop
+          inputs.spicetify-nix.homeManagerModules.default
           impermanence.nixosModules.impermanence
           chaotic.nixosModules.default
-          stylix.homeModules.stylix
           lanzaboote.nixosModules.lanzaboote
           nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager
