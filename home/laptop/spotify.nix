@@ -60,10 +60,10 @@
       shuffle
     ];
 
-    theme = spicePkgs.themes.comfy;
+    theme = spicePkgs.themes.custom; # Explicitly use 'custom' theme
 
     colorScheme = test.scheme; # You can switch between 'test' or 'far'
 
-    customColorScheme = test; # For 'test' color scheme, switch to 'far' if needed
+    customColorScheme = test; # Set to 'test' or 'far'
   };
 }
