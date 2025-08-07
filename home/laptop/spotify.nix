@@ -18,10 +18,10 @@
       shuffle
     ];
 
-    # Use the custom theme
-    theme = "custom";
+    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
 
-    # Declare the custom color scheme directly in Nix
+    colorScheme = "custom"; # Use 'custom' color scheme
+
     customColorScheme = {
       scheme = "test";
       author = "kevin";

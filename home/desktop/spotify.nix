@@ -18,7 +18,9 @@
       shuffle
     ];
 
-    theme = "custom";
+    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
+
+    colorScheme = "custom"; # Use 'custom' color scheme
 
     customColorScheme = {
       scheme = "far";
