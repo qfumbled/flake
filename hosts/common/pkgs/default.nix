@@ -1,11 +1,13 @@
-{ pkgs, config, lib, ... }:
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkIf mkEnableOption;
   cfgTailscale = config.programs.tailscale;
   cfgWayland = config.programs.wayland;
-in
-{
+in {
   options.programs = {
     tailscale.enable = mkEnableOption "tailscale";
     wayland.enable = mkEnableOption "wayland";
@@ -24,6 +26,7 @@ in
 
     environment.systemPackages = with pkgs; [
       spotify
+      dconf
       lix-diff
       obs-studio
       git

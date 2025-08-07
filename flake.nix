@@ -83,7 +83,7 @@
           ./hosts/laptop
           impermanence.nixosModules.impermanence
           chaotic.nixosModules.default
-          stylix.homeManagerModules.stylix
+          stylix.homeModules.stylix
           lanzaboote.nixosModules.lanzaboote
           nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager
