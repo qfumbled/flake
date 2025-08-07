@@ -18,12 +18,10 @@
       shuffle
     ];
 
-    theme = "custom"; # Use custom theme
+    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
 
-    # Define the path to the custom.css file
-    customThemeFile = ./custom.css;
+    colorScheme = "custom"; # Use 'custom' color scheme
 
-    # Apply the custom theme by pointing to the custom.css
     customColorScheme = {
       scheme = "test";
       author = "kevin";
