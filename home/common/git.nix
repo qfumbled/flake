@@ -5,12 +5,24 @@
     userName = "qfumbled";
 
     extraConfig = {
-      "color.ui" = "true";
-      "core.editor" = "zeditor";
-      "credential.helper" = "store";
-      "github.user" = "qfumbled";
-      "push.autoSetupRemote" = "true";
-      "pull.rebase" = "false";
+      color = {
+        ui = true;
+      };
+      core = {
+        editor = "zeditor";
+      };
+      credential = {
+        helper = "store";
+      };
+      github = {
+        user = "qfumbled";
+      };
+      push = {
+        autoSetupRemote = true;
+      };
+      pull = {
+        rebase = false;
+      };
     };
   };
 
