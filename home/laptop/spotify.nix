@@ -1,4 +1,3 @@
-# Looks ugly with light theme
 {
   inputs,
   pkgs,
@@ -6,7 +5,6 @@
   lib,
   ...
 }: {
-  imports = [inputs.spicetify-nix.homeManagerModules.default];
   programs.spicetify = let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   in {
@@ -17,7 +15,8 @@
       shuffle
     ];
 
-    theme = spicePkgs.themes.comfy;
+    # Use mkForce to fix conflicting theme option priority
+    theme = lib.mkForce spicePkgs.themes.comfy;
 
     colorScheme = "custom";
 
