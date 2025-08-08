@@ -8,10 +8,10 @@
       timeout = 15;
     };
 
-    plymouth.enable = false;
+    plymouth.enable = true;
 
     kernelModules = ["v4l2loopback"];
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+    extraModulePackages = [pkgs.linuxPackages_hardened.v4l2loopback];
     kernelParams = [
       "quiet"
       "splash"
