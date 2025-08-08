@@ -16,8 +16,6 @@
       "fastboot"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
-
-      # Basic hardening
       "rootfstype=xfs"
       "module.sig_enforce=1"
       "lockdown=confidentiality"

@@ -15,7 +15,7 @@
 
     kernel.sysctl = {
       "kernel.sysrq" = 0;
-
+      "kernel.unprivileged_userns_clone" = 1;
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       "net.ipv4.conf.default.rp_filter" = 1;
       "net.ipv4.conf.all.rp_filter" = 1;
