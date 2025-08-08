@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  services.lightdm.enable = false;
+  services.gdm.enable = false;
+
   services.greetd = {
     enable = true;
     vt = 3;
