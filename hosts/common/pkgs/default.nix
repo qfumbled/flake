@@ -26,7 +26,6 @@ in {
 
     environment.systemPackages = with pkgs; [
       spotify
-      dconf
       lix-diff
       obs-studio
       git
