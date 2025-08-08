@@ -12,6 +12,7 @@ in {
     ./git.nix
     ./rnoise.nix
     ./xdg.nix
+    ./alacritty.nix
   ];
 
   programs.home-manager.enable = true;
