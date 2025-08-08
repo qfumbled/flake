@@ -14,9 +14,14 @@
     tpm2.enable = true;
     pipewire = true;
 
+    stylix = {
+      enable = false;
+      polarity = "dark";
+      themeName = "far";
+    };
+
     lanzaboote = {
       enable = true;
-      # optionally override the default pkiBundle path:
       pkiBundle = "/var/lib/sbctl";
     };
   };

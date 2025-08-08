@@ -1,4 +1,4 @@
-{...}: {
+{themeName, ...}: {
   imports = [
     ../common
     ./hardware-configuration.nix
@@ -13,7 +13,11 @@
       enable = true;
       size = "15G";
     };
-
+    stylix = {
+      enable = true;
+      polarity = "dark";
+      themeName = far;
+    };
     tpm2 = {
       enable = true;
     };

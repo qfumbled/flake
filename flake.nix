@@ -93,33 +93,35 @@
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/laptop
-          stylix.nixosModules.stylix
+        modules =
+          [
+            ./hosts/laptop
+            stylix.nixosModules.stylix
 
-          # Laptop-specific home-manager user config
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.monaco = import ./home/laptop;
-          }
-        ] ++ commonModules;
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.monaco = import ./home/laptop;
+            }
+          ]
+          ++ commonModules;
         pkgs = pkgs;
       };
 
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/desktop
-          lsfg-vk-flake.nixosModules.default
+        modules =
+          [
+            ./hosts/desktop
+            lsfg-vk-flake.nixosModules.default
 
-          # Desktop-specific home-manager user config
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.monaco = import ./home/desktop;
-          }
-        ] ++ commonModules;
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.monaco = import ./home/desktop;
+            }
+          ]
+          ++ commonModules;
         pkgs = pkgs;
       };
     };
