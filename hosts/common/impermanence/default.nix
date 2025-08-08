@@ -24,7 +24,6 @@ in {
         "/var/log"
         "/var/lib/nixos"
         "/persist/passwords"
-        "/var/lib/AccountsService"
       ];
       files = [
         "/persist/etc/machine-id"
@@ -32,15 +31,6 @@ in {
         "/persist/passwords/user"
       ];
     };
-
-    environment.etc."AccountsService/icons/${username}".source =
-      ./pfp.jpg;
-
-    environment.etc."AccountsService/users/${username}".text = ''
-      [User]
-      Icon=/var/lib/AccountsService/icons/${username}
-      SystemAccount=false
-    '';
 
     system.activationScripts.createPasswordFile = {
       text = ''
