@@ -6,7 +6,7 @@
 
   programs.zed-editor = {
     enable = true;
-    extensions = ["nix" "rust" "make" "html" "toml" "yaml"];
+    extensions = ["nix" "rust" "make" "html" "toml" "yaml" "git-firefly"];
 
     userSettings = {
       # theme = {
