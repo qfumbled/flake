@@ -35,7 +35,7 @@ in {
       enable = true;
 
       # Placeholder (literally doesn't matter)
-      image = ../../../wallpapers/accordion.png;
+      #image = ../.././wallpapers/accordion.png;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
