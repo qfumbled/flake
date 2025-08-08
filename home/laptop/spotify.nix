@@ -18,8 +18,7 @@
       shuffle
     ];
 
-    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
-
+    theme = lib.mkDefault spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
     colorScheme = "custom"; # Use 'custom' color scheme
 
     customColorScheme = with config.lib.stylix.colors; {
