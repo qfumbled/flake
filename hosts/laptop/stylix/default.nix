@@ -27,13 +27,6 @@ in {
     };
   };
 
-  config = {
-    targets = {
-      firefox.enable = false;
-      nixcord.enable = false;
-      zed.enable = true;
-    };
-
     stylix = {
       enable = true;
 
