@@ -37,13 +37,14 @@ in {
     stylix = {
       enable = true;
 
-      # Placeholder (literally doesn't matter)
+      # Placeholder image (literally doesn't matter)
       # image = ../../../wallpapers/accordion.png;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
 
-      #  cursor = {
+      # Cursor config is currently disabled
+      # cursor = {
       #   name = "phinger-cursors-light";
       #   package = pkgs.phinger-cursors;
       #   size = 24;
