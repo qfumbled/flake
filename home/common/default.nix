@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   system,
+  lib, # add lib here to use lib.mkForce
   ...
 }: let
   app2unit = pkgs.callPackage ../../packages/app2unit {};
@@ -18,6 +19,8 @@ in {
   home = {
     username = "monaco";
     homeDirectory = "/home/monaco";
+
+    programs.spicetify.theme.name = lib.mkForce "Comfy";
 
     packages = with pkgs; [
       fastfetch

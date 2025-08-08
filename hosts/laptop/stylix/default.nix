@@ -36,7 +36,6 @@ in {
 
       # Placeholder (literally doesn't matter)
       #image = ../.././wallpapers/accordion.png;
-      home-manager.users.monaco.programs.spicetify.theme.name = lib.mkForce "Comfy";
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
 
