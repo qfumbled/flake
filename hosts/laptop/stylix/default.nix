@@ -11,37 +11,28 @@ in {
       stylix = {
         polarity = lib.mkOption {
           default = "dark";
-          type = lib.types.enum [
-            "dark"
-            "light"
-          ];
+          type = lib.types.enum ["dark" "light"];
+          description = "Color polarity for the theme";
         };
         themeName = lib.mkOption {
           default = "far";
-          type = lib.types.enum [
-            "far"
-            "test"
-          ];
+          type = lib.types.enum ["far" "test"];
+          description = "Name of the theme to use";
         };
       };
     };
   };
 
-    stylix = {
-      enable = true;
+  config = {
+    environment.systemPackages = with pkgs; [
+      # Add any packages here if needed, e.g. fonts, cursors
+    ];
 
-      # Placeholder image (literally doesn't matter)
-      # image = ../../../wallpapers/accordion.png;
+    theme.stylix = {
+      enable = true;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
-
-      # Cursor config is currently disabled
-      # cursor = {
-      #   name = "phinger-cursors-light";
-      #   package = pkgs.phinger-cursors;
-      #   size = 24;
-      # };
 
       fonts = {
         sizes = {
@@ -58,6 +49,13 @@ in {
           package = pkgs.rubik;
         };
       };
+
+      # Uncomment and configure cursor if needed
+      # cursor = {
+      #   name = "phinger-cursors-light";
+      #   package = pkgs.phinger-cursors;
+      #   size = 24;
+      # };
     };
   };
 }
