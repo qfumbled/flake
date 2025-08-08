@@ -11,5 +11,15 @@
 
 ### TODO
 
-- Add support for `age` and `sops`
-- Improve the GitHub workflows
+- [ ] Add support for `age` and `sops`
+- [ ] Improve the GitHub workflows
+
+### Done
+
+- [x] Added Stylix — made sure it didn't whine on some dumb deps I don't need
+- [x] Added Plymouth — forgot I had it off
+- [x] Removed annoying whining KDE Wallet — I hate it so much
+- [x] added luks to my laptop
+- [x] lanzaboote (pc and laptop)
+- [x] xfs. (laptop)
+---
