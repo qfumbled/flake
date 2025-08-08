@@ -21,6 +21,5 @@
     ./qt
     ./security
     ./services
-    ./stylix
   ];
 }

@@ -4,36 +4,44 @@
   lib,
   ...
 }: let
-  cfg = config.opt.stylix;
+  cfg = config.theme.stylix;
 in {
   options = {
-    opt = {
+    theme = {
       stylix = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Enable the stylix theme";
-        };
         polarity = lib.mkOption {
-          type = lib.types.enum ["dark" "light"];
           default = "dark";
-          description = "Theme polarity (dark or light)";
+          type = lib.types.enum [
+            "dark"
+            "light"
+          ];
         };
         themeName = lib.mkOption {
-          type = lib.types.enum ["far" "test"];
           default = "far";
-          description = "Stylix theme name";
+          type = lib.types.enum [
+            "far"
+            "test"
+          ];
         };
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     stylix = {
-      enabled = true;
+      enable = true;
+
+      # Placeholder (literally doesn't matter)
+      image = ../../../wallpapers/accordion.png;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
+
+      cursor = {
+        name = "phinger-cursors-light";
+        package = pkgs.phinger-cursors;
+        size = 24;
+      };
 
       fonts = {
         sizes = {

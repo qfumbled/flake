@@ -8,7 +8,6 @@
     ./misc.nix
   ];
 
-  stylix.enable = false;
   opt = {
     zram.enable = false;
     flatpak.enable = true;

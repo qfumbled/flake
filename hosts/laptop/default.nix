@@ -1,6 +1,7 @@
 {themeName, ...}: {
   imports = [
     ../common
+    ./stylix
     ./hardware-configuration.nix
     ./networking.nix
   ];
