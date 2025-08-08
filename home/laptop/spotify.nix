@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }: {
   imports = [inputs.spicetify-nix.homeManagerModules.default];
