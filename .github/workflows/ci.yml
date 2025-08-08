@@ -13,9 +13,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - hostName: desktop
-            nixosCfgKey: desktop
-            os-label: ubuntu-latest
           - hostName: laptop
             nixosCfgKey: laptop
             os-label: ubuntu-latest
