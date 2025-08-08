@@ -10,18 +10,18 @@ in {
     opt = {
       stylix = {
         enable = lib.mkOption {
-          default = false;
           type = lib.types.bool;
+          default = false;
           description = "Enable the stylix theme";
         };
         polarity = lib.mkOption {
-          default = "dark";
           type = lib.types.enum ["dark" "light"];
+          default = "dark";
           description = "Theme polarity (dark or light)";
         };
         themeName = lib.mkOption {
-          default = "far";
           type = lib.types.enum ["far" "test"];
+          default = "far";
           description = "Stylix theme name";
         };
       };
@@ -32,7 +32,8 @@ in {
     opt.stylix = {
       enable = true;
 
-      #  image = ../../../wallpapers/accordion.png;
+      # You can uncomment and adjust this path if you want wallpaper support
+      # image = ../../../wallpapers/accordion.png;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
