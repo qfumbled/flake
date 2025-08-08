@@ -36,7 +36,4 @@
       "kernel.unprivileged_bpf_disabled" = 1;
     };
   };
-
-  # Optional: Enable AppArmor for additional process confinement
-  security.apparmor.enable = true;
 }
