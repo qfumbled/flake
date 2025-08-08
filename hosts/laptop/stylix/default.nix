@@ -30,7 +30,7 @@ in {
   targets = {
     firefox.enable = false;
     nixcord.enable = false;
-    zed.enable = true;
+    #zed.enable = true;
   };
 
   config = {
