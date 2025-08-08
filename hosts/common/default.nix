@@ -22,5 +22,6 @@
     ./security
     ./services
     ./greetd
+    ./virtualisation
   ];
 }
