@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   boot = {
-    # kernelPackages = pkgs.linuxPackages_cachyos; # till you install the flake
-    kernelPackages = pkgs.linuxPackages_latest;
-
+    boot.kernelPackages = pkgs.linuxPackages_hardened;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;

@@ -11,7 +11,7 @@ in {
     ./zed.nix
     ./git.nix
     ./rnoise.nix
-    # gotta make this work ./zen.nix
+    ./xdg.nix
   ];
 
   programs.home-manager.enable = true;
