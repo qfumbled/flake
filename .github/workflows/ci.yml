@@ -1,13 +1,3 @@
-name: Build NixOS Configurations
-
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - "**.nix"
-      - "flake.lock"
-      - ".github/workflows/ci.yml"
-
 jobs:
   build-config:
     strategy:
@@ -15,6 +5,9 @@ jobs:
         include:
           - hostName: laptop
             nixosCfgKey: laptop
+            os-label: ubuntu-latest
+          - hostName: desktop
+            nixosCfgKey: desktop
             os-label: ubuntu-latest
       fail-fast: false
 
