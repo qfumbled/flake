@@ -27,7 +27,7 @@ in {
         "/var/lib/AccountsService"
       ];
       files = [
-        "/etc/machine-id"
+        "/persist/etc/machine-id"
         "/etc/wg.key"
         "/persist/passwords/user"
       ];
