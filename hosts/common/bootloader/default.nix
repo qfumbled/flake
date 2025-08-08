@@ -10,7 +10,6 @@
     };
 
     plymouth.enable = true;
-    services.fwupd.enable = true;
     kernelModules = ["v4l2loopback"];
     extraModulePackages = [pkgs.linuxPackages_hardened.v4l2loopback];
     kernelParams = [

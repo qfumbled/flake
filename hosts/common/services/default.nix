@@ -15,7 +15,7 @@ in {
     services = {
       dbus.enable = true;
       gvfs.enable = true;
-
+      fwupd.enable = true;
       # Conditional upower service enablement
       upower.enable = mkIf config.opt.upower true;
 
