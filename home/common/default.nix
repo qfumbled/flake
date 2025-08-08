@@ -41,8 +41,4 @@ in {
 
     stateVersion = "25.05";
   };
-
-  home-manager.users.monaco = {
-    #
-  };
 }
