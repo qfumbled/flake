@@ -8,11 +8,12 @@
     enable = true;
 
     workspace = {
-      workspace.wallpaper = "${builtins.path {path = ../../wallpapers/wallhaven2.jpg;}}";
+      wallpaper = "${builtins.path {path = ../../wallpapers/wallhaven2.jpg;}}";
       iconTheme = "Papirus-Dark";
       cursor.theme = "Bibata-Modern-Ice";
       lookAndFeel = "org.kde.breeze.desktop";
     };
+
     shortcuts = {
       kwin = {
         "Window Fullscreen" = "Meta+F";
@@ -58,11 +59,7 @@
         widgets = [
           "org.kde.plasma.kickoff"
           "org.kde.plasma.panelspacer"
-          {
-            digitalClock = {
-              date.enable = false;
-            };
-          }
+          {digitalClock.date.enable = false;}
           "org.kde.plasma.panelspacer"
           "org.kde.plasma.systemtray"
         ];
