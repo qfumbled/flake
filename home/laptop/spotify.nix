@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [inputs.spicetify-nix.homeManagerModules.default];
-
+  home-manager.users.monaco.programs.spicetify.theme.name = lib.mkForce "Comfy";
   programs.spicetify = let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   in {
