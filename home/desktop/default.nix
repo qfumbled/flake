@@ -4,6 +4,7 @@
     ./plasma.nix
     ./vesktop.nix
     ./spotify.nix
+    ./zed.nix
   ];
 
   home = {

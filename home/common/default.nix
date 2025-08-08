@@ -8,7 +8,6 @@
 in {
   imports = [
     ./shell.nix
-    ./zed.nix
     ./git.nix
     ./rnoise.nix
     ./xdg.nix
