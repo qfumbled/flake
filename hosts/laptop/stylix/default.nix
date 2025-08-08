@@ -37,11 +37,11 @@ in {
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
 
-      cursor = {
-        name = "phinger-cursors-light";
-        package = pkgs.phinger-cursors;
-        size = 24;
-      };
+      #  cursor = {
+      #   name = "phinger-cursors-light";
+      #   package = pkgs.phinger-cursors;
+      #   size = 24;
+      # };
 
       fonts = {
         sizes = {
