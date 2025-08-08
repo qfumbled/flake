@@ -16,7 +16,7 @@
     stylix = {
       enable = true;
       polarity = "dark";
-      themeName = far;
+      themeName = "far";
     };
     tpm2 = {
       enable = true;
