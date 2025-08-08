@@ -29,11 +29,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    opt.stylix = {
-      enable = true;
-
-      # You can uncomment and adjust this path if you want wallpaper support
-      # image = ../../../wallpapers/accordion.png;
+    stylix = {
+      enabled = true;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;
