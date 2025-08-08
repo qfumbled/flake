@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.git = {
     enable = true;
     userEmail = "q.fumbled@proton.me";
@@ -18,34 +22,26 @@
         nobranch = "white";
       };
 
-      # Core options
       core = {
         editor = "zeditor";
-        pager = "less -F -X -R"; # safe and common pager flags
-        rerere = true; # enable rerere to reuse conflict resolutions
-        fsckObjects = true; # verify objects before checkout/merge (extra safety)
-        safecrlf = "warn"; # warn if line endings could be corrupted
+        pager = "less -F -X -R";
+        rerere = true;
+        fsckObjects = true;
+        safecrlf = "warn";
+        excludesFile = "${config.home.homeDirectory}/.config/git/ignore";
       };
 
-      # Credentials
-      credential.helper = "store"; # stores credentials unencrypted
+      credential.helper = "store";
 
       github.user = "qfumbled";
 
       push.autoSetupRemote = true;
       pull.rebase = false;
 
-      # Safer pushing advice
       advice.pushNonFFCurrent = true;
       push.default = "simple";
     };
   };
-
-  ignores = [
-    "*.log"
-    ".envrc"
-    "shell.nix"
-  ];
 
   programs.ssh = {
     enable = true;
