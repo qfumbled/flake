@@ -5,6 +5,10 @@
     ./networking.nix
   ];
 
+  stylix.enable = true;
+  stylix.polarity = "dark";
+  stylix.themeName = "far";
+
   opt = {
     pipewire = true;
     flatpak.enable = true;
@@ -13,11 +17,7 @@
       enable = true;
       size = "15G";
     };
-    stylix = {
-      enable = true;
-      polarity = "dark";
-      themeName = "far";
-    };
+
     tpm2 = {
       enable = true;
     };
@@ -27,4 +27,6 @@
       pkiBundle = "/var/lib/sbctl";
     };
   };
+
+  # No stylix here anymore
 }
