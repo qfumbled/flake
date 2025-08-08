@@ -10,8 +10,8 @@
     workspace = {
       wallpaper = "${builtins.path {path = ../../wallpapers/wallhaven2.jpg;}}";
       iconTheme = "Papirus-Dark";
-      cursor.theme = "Bibata-Modern-Ice";
-      lookAndFeel = "org.kde.breeze.desktop";
+      cursor.theme = "Bibata-Modern-Classic";
+      lookAndFeel = "org.kde.breezedark.desktop";
     };
 
     shortcuts = {
