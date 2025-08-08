@@ -79,8 +79,6 @@
       nix-flatpak.nixosModules.nix-flatpak
       home-manager.nixosModules.home-manager
       {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
           inherit inputs system;
         };
@@ -95,26 +93,34 @@
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules =
-          [
-            ./hosts/laptop
-            stylix.nixosModules.stylix
-          ]
-          ++ commonModules;
+        modules = [
+          ./hosts/laptop
+          stylix.nixosModules.stylix
+
+          # Laptop-specific home-manager user config
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.monaco = import ./home/laptop;
+          }
+        ] ++ commonModules;
         pkgs = pkgs;
-        # Optionally, you can also set system-specific config here
       };
 
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules =
-          [
-            ./hosts/desktop
-            lsfg-vk-flake.nixosModules.default
-          ]
-          ++ commonModules;
+        modules = [
+          ./hosts/desktop
+          lsfg-vk-flake.nixosModules.default
+
+          # Desktop-specific home-manager user config
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.monaco = import ./home/desktop;
+          }
+        ] ++ commonModules;
         pkgs = pkgs;
-        # Optionally, you can also set system-specific config here
       };
     };
   };
