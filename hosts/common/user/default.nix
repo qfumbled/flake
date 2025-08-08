@@ -2,7 +2,16 @@
   users.users.monaco = {
     isNormalUser = true;
     description = "monegasque";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "audio"
+      "video"
+      "libvirtd"
+      "docker"
+      "uinput"
+      "adbusers"
+    ];
     shell = pkgs.nushell;
   };
 }
