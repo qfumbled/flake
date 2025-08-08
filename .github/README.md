@@ -22,4 +22,5 @@
 - [x] added luks to my laptop
 - [x] lanzaboote (pc and laptop)
 - [x] xfs. (laptop)
+- [x] tpm support
 ---
