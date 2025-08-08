@@ -2,23 +2,25 @@
   inputs,
   pkgs,
   config,
-  lib,
   ...
 }: {
+  imports = [inputs.spicetify-nix.homeManagerModules.default];
+
   programs.spicetify = let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   in {
     enable = true;
+    spotifyPackage = pkgs.spotify;
+    spicetifyPackage = pkgs.spicetify-cli;
 
     enabledExtensions = with spicePkgs.extensions; [
       adblock
       shuffle
     ];
 
-    # Use mkForce to fix conflicting theme option priority
-    theme = lib.mkForce spicePkgs.themes.comfy;
+    theme = spicePkgs.themes.comfy; # You can keep comfy or any other theme you like
 
-    colorScheme = "custom";
+    colorScheme = "custom"; # Use 'custom' color scheme
 
     customColorScheme = with config.lib.stylix.colors; {
       text = base05;
