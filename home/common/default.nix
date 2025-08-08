@@ -43,6 +43,6 @@ in {
   };
 
   home-manager.users.monaco = {
-    programs.spicetify.theme.name = lib.mkForce "Comfy";
+    #
   };
 }
