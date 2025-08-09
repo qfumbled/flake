@@ -28,7 +28,7 @@
       "rootfstype=xfs"
       "module.sig_enforce=1"
       "lockdown=confidentiality"
-
+      "nvme.noacpi=1"
       "intel_iommu=on"
       "amd_iommu=on"
       "amd_pstate=active"
