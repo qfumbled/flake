@@ -15,12 +15,6 @@
       cleanOnBoot = true;
     };
 
-    systemd.services.nix-daemon = {
-      environment = {
-        TMPDIR = "/var/tmp";
-      };
-    };
-
     plymouth.enable = true;
     kernelModules = ["v4l2loopback"];
     extraModulePackages = [pkgs.linuxPackages_hardened.v4l2loopback];
@@ -59,6 +53,12 @@
       "vm.dirty_background_ratio" = 5;
 
       "kernel.nmi_watchdog" = 0;
+    };
+  };
+
+  systemd.services.nix-daemon = {
+    environment = {
+      TMPDIR = "/var/tmp";
     };
   };
 }
