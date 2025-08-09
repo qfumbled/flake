@@ -33,7 +33,6 @@
       "amd_iommu=on"
       "amd_pstate=active"
 
-      "mitigations=on"
       "ideapad_laptop.allow_v4_dytc=Y"
       "nvme_core.default_ps_max_latency_us=0"
     ];
