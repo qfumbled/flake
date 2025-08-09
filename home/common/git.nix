@@ -41,6 +41,11 @@
       advice.pushNonFFCurrent = true;
       push.default = "simple";
     };
+
+    # Ensure global config is written so Git always knows who you are
+    includes = [
+      {path = "${config.xdg.configHome}/git/config";}
+    ];
   };
 
   programs.ssh = {
@@ -48,7 +53,5 @@
     addKeysToAgent = "yes";
   };
 
-  services.ssh-agent = {
-    enable = pkgs.stdenv.isLinux;
-  };
+  services.ssh-agent.enable = pkgs.stdenv.isLinux;
 }
