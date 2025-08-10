@@ -12,6 +12,14 @@
       url = "github:danth/stylix";
     };
 
+    ags = {
+      url = "github:Aylur/ags";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
     jovian = {
       url = "github:jovian-experiments/jovian-nixos/development";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +71,8 @@
     lanzaboote,
     impermanence,
     stylix,
+    hyprland,
+    ags,
     ...
   }: let
     system = "x86_64-linux";
