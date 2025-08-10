@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../common
+    ../../modules/nixos
     ./hardware-configuration.nix
     ./nvidia.nix
     ./gaming.nix

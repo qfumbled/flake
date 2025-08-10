@@ -1,6 +1,6 @@
 {themeName, ...}: {
   imports = [
-    ../common
+    ../../modules/nixos
     ./stylix
     ./hardware-configuration.nix
     ./networking.nix
