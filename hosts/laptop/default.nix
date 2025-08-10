@@ -1,6 +1,7 @@
 {themeName, ...}: {
   imports = [
     ../../modules/nixos
+    ./hyprland.nix
     ./stylix
     ./hardware-configuration.nix
     ./networking.nix
