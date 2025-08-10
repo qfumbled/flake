@@ -1,9 +1,6 @@
+{ inputs, config, lib, ... }:
+
 {
-  inputs,
-  config,
-  lib,
-  ...
-}: {
   wayland.windowManager.hyprland = {
     settings = {
       # Set your own cursor theme here if you want
@@ -11,6 +8,7 @@
         # "HYPRCURSOR_THEME,YourCursorThemeHere"
         "HYPRCURSOR_SIZE,24"
       ];
+
       general = with config.lib.stylix.colors; {
         gaps_in = 8;
         gaps_out = 12;
@@ -20,12 +18,13 @@
         layout = "dwindle";
         resize_on_border = "true";
       };
+
       decoration = {
         shadow = {
           enabled = true;
           range = 18;
           render_power = 3;
-          color = config.lib.mkForce "rgba(00000066)";
+          color = lib.mkForce "rgba(00000066)";
         };
         rounding = 5;
         dim_inactive = true;
