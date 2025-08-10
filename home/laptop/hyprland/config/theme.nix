@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   ...
 }: {
   wayland.windowManager.hyprland = {
@@ -24,7 +25,7 @@
           enabled = true;
           range = 18;
           render_power = 3;
-          color = "rgba(00000066)";
+          color = config.lib.mkForce "rgba(00000066)";
         };
         rounding = 5;
         dim_inactive = true;
