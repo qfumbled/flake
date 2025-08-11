@@ -7,13 +7,6 @@
     };
   };
 
-  # Enable Nushell plugins (skim, query, gstat, polars)
-  plugins = with pkgs.nushellPlugins; [
-    query
-    gstat
-    polars
-  ];
-
   # Enable Starship prompt with Nushell integration
   programs.starship = {
     enable = true;
@@ -40,7 +33,7 @@
     enable = true;
     settings = {
       init = ''
-        if [ $SHELL == "/usr/bin/nu" ]; then
+        if [[ "$($SHELL)" == *"nu"* ]]; then
           export _ZO_CMD=zoxide
           eval "$(zoxide init nushell)"
         fi
@@ -60,6 +53,6 @@
 
   # Ensure zed is available if needed
   environment.systemPackages = with pkgs; [
-    zed
+   #
   ];
 }
