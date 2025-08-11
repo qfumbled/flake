@@ -6,16 +6,9 @@
 
     flake-compat.url = "github:edolstra/flake-compat";
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
+    flake-utils.url = "github:numtide/flake-utils";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # rest of inputs, alphabetical order
@@ -68,44 +61,45 @@
     };
   };
 
-  outputs = inputs: let
-    # Make sure inputs are passed correctly
-    inherit (inputs) nixpkgs hm zen-browser stylix agenix nix-gaming anyrun niri;
-
-  in inputs.flake-parts.lib.mkFlake {
-    inherit inputs;
+  outputs = inputs: {
+    # Use flake-parts correctly to define the systems
     systems = ["x86_64-linux"];
 
-    # Import paths for profiles and system config
+    # Imports
     imports = [
-      ./home/profiles    # Ensure this path is correctly specified
+      ./home/profiles
       ./hosts
       ./pkgs
     ];
 
-    perSystem = { config, pkgs, ... }: {
-      # Dev shell setup
-      devShells = {
-        default = pkgs.mkShell {
-          packages = [ pkgs.alejandra pkgs.git pkgs.nix ];
-          name = "nixland";
-          DIRENV_LOG_FORMAT = "";
+    # Define the per-system configurations
+    nixosConfigurations = {
+      nixawestic = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/nixawestic/default.nix  # Host system config
+          ./home/profiles/default.nix    # User profile config
+        ];
+        configuration = { config, pkgs, ... }: {
+          # Additional configuration options can go here
         };
       };
+    };
 
-      # Nix Formatter
-      formatter = pkgs.alejandra;
+    # Dev Shell
+    devShells = {
+      default = inputs.nixpkgs.mkShell {
+        packages = [ inputs.nixpkgs.alejandra inputs.nixpkgs.git inputs.nixpkgs.nix ];
+        name = "nixland";
+        DIRENV_LOG_FORMAT = "";
+      };
+    };
 
-      # Define nixosConfigurations for the nixawestic host
-      nixosConfigurations = {
-        nixawestic = pkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/nixawestic/default.nix  # Referencing the host system config
-            ./home/profiles/default.nix    # Referencing user profiles
-          ];
-          configuration = config;  # Specify any additional options if necessary
-        };
+    # Home Manager integration
+    homeConfigurations = {
+      nixawestic = inputs.hm.lib.homeManagerConfiguration {
+        configuration = ./home/profiles/default.nix;
+        pkgs = inputs.nixpkgs;
       };
     };
   };
