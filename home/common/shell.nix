@@ -48,9 +48,4 @@
       '';
     };
   };
-
-  # Ensure zed is available if needed
-  environment.systemPackages = with pkgs; [
-    #
-  ];
 }
