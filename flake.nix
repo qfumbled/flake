@@ -2,28 +2,70 @@
   description = "nixos";
 
   inputs = {
-    # Core Nixpkgs
+    systems.url = "github:nix-systems/default-linux";
+
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Home Manager
+    # rest of inputs, alphabetical order
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "hm";
+      inputs.systems.follows = "systems";
+    };
+
+    anyrun.url = "github:anyrun-org/anyrun";
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Additional Tools
-    zen-browser.url = "github:pfaj/zen-browser-flake";
-    stylix.url = "github:danth/stylix";
-    agenix.url = "github:ryantm/agenix";
+    lanzaboote.url = "github:nix-community/lanzaboote";
+
     mynixpkgs.url = "github:linuxmobile/mynixpkgs";
 
-    # Gaming
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # Other
-    anyrun.url = "github:anyrun-org/anyrun";
-    niri.url = "github:sodiboo/niri-flake";
+    nix-index-db = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:pfaj/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let
