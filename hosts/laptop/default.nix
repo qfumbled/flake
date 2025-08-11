@@ -19,10 +19,5 @@
     tpm2 = {
       enable = true;
     };
-
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
   };
 }
