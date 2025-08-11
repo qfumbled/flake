@@ -11,7 +11,7 @@
       ./pkgs
     ];
 
-    # Define the nixosConfigurations outside perSystem
+    # Define nixosConfigurations outside of perSystem
     nixosConfigurations = {
       nixawestic = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";  # Specify the system architecture
@@ -19,11 +19,10 @@
           ./hosts/nixawestic/default.nix  # Host-specific NixOS config
           ./home/profiles/default.nix    # User-specific Home Manager config
         ];
-        # Optional: Specify any additional options here if necessary
-        configuration = inputs.config;
       };
     };
 
+    # System-specific definitions
     perSystem = { system, config, pkgs, ... }: {
       # Dev shell setup
       devShells = {
