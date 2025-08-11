@@ -10,7 +10,7 @@
 
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/bin/polkit-kde-authentication-agent-1";  # Use Qt 6 version
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;
