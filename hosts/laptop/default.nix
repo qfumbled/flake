@@ -8,7 +8,6 @@
   ];
 
   opt = {
-    pipewire = true;
     flatpak.enable = true;
 
     zram = {
