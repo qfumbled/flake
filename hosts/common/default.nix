@@ -5,7 +5,7 @@
     ./locales.nix
     ./misc.nix
     ./networking.nix
-    ./nixpkgs.nix
+    #./nixpkgs.nix
     ./plasma.nix
     ./impermanece.nix
     ./documentation.nix
