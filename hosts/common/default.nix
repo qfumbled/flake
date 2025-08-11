@@ -7,7 +7,7 @@
     ./networking.nix
     ./nixpkgs.nix
     ./plasma.nix
-    ./impermanence.nix
+    ./impermanece.nix
     ./documentation.nix
     ./flatpak.nix
     ./pkgs.nix
