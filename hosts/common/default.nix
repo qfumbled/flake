@@ -17,5 +17,6 @@
     ./portal.nix
     ./zram.nix
     ./bluetooth.nix
+    ./lanzaboote.nix
   ];
 }
