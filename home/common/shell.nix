@@ -36,16 +36,18 @@
     enableNushellIntegration = true;
   };
 
-  # Enable zoxide for fast directory navigation
-  programs.zoxide = {
-    enable = true;
-    settings = {
-      init = ''
-        if [[ "$($SHELL)" == *"nu"* ]]; then
-          export _ZO_CMD=zoxide
-          eval "$(zoxide init nushell)"
-        fi
-      '';
+  # User-level Zoxide setup through Home Manager
+  home-manager.users.monaco = { config, pkgs, ... }: {
+    programs.zoxide = {
+      enable = true;
+      settings = {
+        init = ''
+          if [[ "$($SHELL)" == *"nu"* ]]; then
+            export _ZO_CMD=zoxide
+            eval "$(zoxide init nushell)"
+          fi
+        '';
+      };
     };
   };
 }
