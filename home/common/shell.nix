@@ -3,7 +3,15 @@
   programs.nushell = {
     enable = true;
     settings = {
-      show_banner = false;
+      show_banner = false;  # Disables Nushell's startup banner
+      aliases = {
+        ls = "eza";  # ls -> eza
+        zed = "zeditor";  # zed -> zeditor
+        ll = "eza -h --git --icons --color=auto --group-directories-first -s extension";  # Enhanced ls
+        cat = "bat --number --color=always --paging=never --tabs=2 --wrap=never";  # cat -> bat
+        cd = "zoxide";  # cd -> zoxide for fast directory navigation
+        z = "zoxide";  # Alias z for zoxide
+      };
     };
   };
 
@@ -41,18 +49,8 @@
     };
   };
 
-  # Set up aliases
-  environment.shellAliases = {
-    ls = "eza";  # ls -> eza
-    zed = "zeditor";  # zed -> zeditor
-    ll = "eza -h --git --icons --color=auto --group-directories-first -s extension";  # Enhanced ls
-    cd = "zoxide";  # cd -> zoxide for fast directory navigation
-    cat = "bat --number --color=always --paging=never --tabs=2 --wrap=never";  # cat -> bat
-    z = "zoxide";  # Alias z for zoxide
-  };
-
   # Ensure zed is available if needed
   environment.systemPackages = with pkgs; [
-   #
+    #
   ];
 }
