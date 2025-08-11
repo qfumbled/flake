@@ -1,135 +1,70 @@
 {
-  description = "TODO";
+  description = "nixos";
+
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = ["x86_64-linux"];
+
+    # Import paths for profiles and system config
+    imports = [
+      ./home/profiles    # Ensure this path is correctly specified
+      ./hosts
+      ./pkgs
+    ];
+
+    perSystem = { config, pkgs, ... }: {
+      # Dev shell setup
+      devShells = {
+        default = pkgs.mkShell {
+          packages = [ pkgs.alejandra pkgs.git pkgs.nix ];
+          name = "nixland";
+          DIRENV_LOG_FORMAT = "";
+        };
+      };
+
+      # Nix Formatter
+      formatter = pkgs.alejandra;
+
+      # Define nixosConfigurations for the nixawestic host
+      nixosConfigurations = {
+        nixawestic = pkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nixawestic/default.nix  # Referencing the host system config
+            ./home/profiles/default.nix    # Referencing user profiles
+          ];
+          configuration = config;  # Specify any additional options if necessary
+        };
+      };
+    };
+  };
 
   inputs = {
+    # Core Nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
+    # Tools and Utilities
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
- niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stylix = {
-      url = "github:danth/stylix";
-    };
-
-    jovian = {
-      url = "github:jovian-experiments/jovian-nixos/development";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
-    home-manager = {
+    # Home Manager
+    hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-    };
+    # Additional Tools
+    zen-browser.url = "github:pfaj/zen-browser-flake";
+    stylix.url = "github:danth/stylix";
+    agenix.url = "github:ryantm/agenix";
+    mynixpkgs.url = "github:linuxmobile/mynixpkgs";
 
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-    };
+    # Gaming
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    };
-
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    lsfg-vk-flake = {
-      url = "github:pabloaul/lsfg-vk-flake/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = inputs @ {
-    nixpkgs,
-    home-manager,
-    plasma-manager,
-    lsfg-vk-flake,
-    nix-flatpak,
-    chaotic,
-    lanzaboote,
-    impermanence,
-    stylix,
-    niri,
-    ...
-  }: let
-    system = "x86_64-linux";
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
-    commonModules = [
-      impermanence.nixosModules.impermanence
-      lanzaboote.nixosModules.lanzaboote
-      chaotic.nixosModules.default
-      nix-flatpak.nixosModules.nix-flatpak
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.extraSpecialArgs = {
-          inherit inputs system;
-        };
-        home-manager.sharedModules = [
-          plasma-manager.homeManagerModules.plasma-manager
-        ];
-      }
-    ];
-  in {
-    nixosModules.lanzaboote = import lanzaboote;
-
-    nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules =
-          [
-            ./hosts/laptop
-            stylix.nixosModules.stylix
-
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.monaco = import ./home/laptop;
-            }
-          ]
-          ++ commonModules;
-        pkgs = pkgs;
-      };
-
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules =
-          [
-            ./hosts/desktop
-            lsfg-vk-flake.nixosModules.default
-
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.monaco = import ./home/desktop;
-            }
-          ]
-          ++ commonModules;
-        pkgs = pkgs;
-      };
-    };
+    # Other
+    anyrun.url = "github:anyrun-org/anyrun";
+    niri.url = "github:sodiboo/niri-flake";
   };
 }
