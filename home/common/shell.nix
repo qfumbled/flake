@@ -35,17 +35,4 @@
     enable = true;
     enableNushellIntegration = true;
   };
-
-  # Enable zoxide for fast directory navigation
-  programs.zoxide = {
-    enable = true;
-    settings = {
-      init = ''
-        if [[ "$($SHELL)" == *"nu"* ]]; then
-          export _ZO_CMD=zoxide
-          eval "$(zoxide init nushell)"
-        fi
-      '';
-    };
-  };
 }

@@ -10,6 +10,7 @@
     ./polkit-agent.nix
     ./rnnoise.nix
     ./bat.nix
+    ./zoxide.nix
   ];
 
   programs.home-manager.enable = true;
