@@ -18,6 +18,10 @@
       url = "github:danth/stylix";
     };
 
+     impermanence = {
+      url = "github:nix-community/impermanence";
+    };
+
       lanzaboote = {
       url = "github:nix-community/lanzaboote";
     };
@@ -56,6 +60,7 @@
     stylix,
     lanzaboote,
     nix-flatpak,
+    impermanence,
     ...
   }: {
     nixosConfigurations = {
