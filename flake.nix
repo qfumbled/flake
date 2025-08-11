@@ -8,6 +8,11 @@
       url = "github:nix-community/impermanence";
     };
 
+ niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:danth/stylix";
     };
@@ -63,6 +68,7 @@
     lanzaboote,
     impermanence,
     stylix,
+    niri,
     ...
   }: let
     system = "x86_64-linux";
