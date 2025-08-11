@@ -36,8 +36,6 @@
     enableNushellIntegration = true;
   };
 
-  # User-level Zoxide setup through Home Manager
-  home-manager.users.monaco = { config, pkgs, ... }: {
     programs.zoxide = {
       enable = true;
       settings = {
