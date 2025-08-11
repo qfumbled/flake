@@ -11,6 +11,19 @@
       ./pkgs
     ];
 
+    # Define the nixosConfigurations outside perSystem
+    nixosConfigurations = {
+      nixawestic = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";  # Specify the system architecture
+        modules = [
+          ./hosts/nixawestic/default.nix  # Host-specific NixOS config
+          ./home/profiles/default.nix    # User-specific Home Manager config
+        ];
+        # Optional: Specify any additional options here if necessary
+        configuration = inputs.config;
+      };
+    };
+
     perSystem = { system, config, pkgs, ... }: {
       # Dev shell setup
       devShells = {
@@ -23,21 +36,6 @@
 
       # Nix Formatter
       formatter = pkgs.alejandra;
-
-      # Define nixosConfigurations for the nixawestic host
-      nixosConfigurations = {
-        nixawestic = pkgs.nixosSystem {
-          system = "x86_64-linux";  # Specify the system architecture
-          modules = [
-            ./hosts/nixawestic/default.nix  # Host-specific NixOS config
-            ./home/profiles/default.nix    # User-specific Home Manager config
-            # You can add more modules here if needed, like services or other configurations
-          ];
-
-          # Optionally, set additional configuration options here
-          configuration = config;
-        };
-      };
     };
   };
 
