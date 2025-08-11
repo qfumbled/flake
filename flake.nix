@@ -6,12 +6,12 @@
 
     # Import paths for profiles and system config
     imports = [
-      ./home/profiles    # Ensure this path is correctly specified
+      ./home/profiles  # Ensure this path is correctly specified
       ./hosts
       ./pkgs
     ];
 
-    perSystem = { config, pkgs, ... }: {
+    perSystem = { system, config, pkgs, ... }: {
       # Dev shell setup
       devShells = {
         default = pkgs.mkShell {
@@ -27,12 +27,15 @@
       # Define nixosConfigurations for the nixawestic host
       nixosConfigurations = {
         nixawestic = pkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          system = "x86_64-linux";  # Specify the system architecture
           modules = [
-            ./hosts/nixawestic/default.nix  # Referencing the host system config
-            ./home/profiles/default.nix    # Referencing user profiles
+            ./hosts/nixawestic/default.nix  # Host-specific NixOS config
+            ./home/profiles/default.nix    # User-specific Home Manager config
+            # You can add more modules here if needed, like services or other configurations
           ];
-          configuration = config;  # Specify any additional options if necessary
+
+          # Optionally, set additional configuration options here
+          configuration = config;
         };
       };
     };
