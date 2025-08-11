@@ -26,7 +26,7 @@
 
       # Define nixosConfigurations for the nixawestic host
       nixosConfigurations = {
-        nixawestic = pkgs.lib.nixosSystem {
+        nixawestic = pkgs.nixosSystem {
           system = "x86_64-linux";  # Specify the system architecture
           modules = [
             ./hosts/nixawestic/default.nix  # Host-specific NixOS config
