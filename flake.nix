@@ -1,105 +1,117 @@
 {
-  description = "nixos";
+  description = "TODO";
 
   inputs = {
-    systems.url = "github:nix-systems/default-linux";
-
-    flake-compat.url = "github:edolstra/flake-compat";
-
-    flake-utils.url = "github:numtide/flake-utils";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # rest of inputs, alphabetical order
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "hm";
-      inputs.systems.follows = "systems";
-    };
-
-    anyrun.url = "github:anyrun-org/anyrun";
-
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
-    hm = {
+    home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote.url = "github:nix-community/lanzaboote";
-
-    mynixpkgs.url = "github:linuxmobile/mynixpkgs";
-
-    niri = {
-      url = "github:sodiboo/niri-flake";
+     zen-browser = {
+      url = "github:pfaj/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-db = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
     };
 
     stylix = {
       url = "github:danth/stylix";
+    };
+
+      lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    jovian = {
+      url = "github:jovian-experiments/jovian-nixos/development";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser = {
-      url = "github:pfaj/zen-browser-flake";
+    lsfg-vk-flake = {
+      url = "github:pabloaul/lsfg-vk-flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+     nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+    };
+
+    # arkenfox.url = "github:dwarfmaster/arkenfox-nixos";
   };
 
-  outputs = inputs: {
-    # Use flake-parts correctly to define the systems
-    systems = ["x86_64-linux"];
-
-    # Imports
-    imports = [
-      ./home/profiles
-      ./hosts
-      ./pkgs
-    ];
-
-    # Define the per-system configurations
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    plasma-manager,
+    jovian,
+    lsfg-vk-flake,
+    zen-browser,
+    stylix,
+    lanzaboote,
+    nix-flatpak,
+    ...
+  }: {
     nixosConfigurations = {
-      nixawestic = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      laptop = nixpkgs.lib.nixosSystem {
         modules = [
-          ./hosts/nixawestic/default.nix  # Host system config
-          ./home/profiles/default.nix    # User profile config
+          ./hosts/laptop
+        impermanence.nixosModules.impermanence
+        lanzaboote.nixosModules.lanzaboote
+        chaotic.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.poacher = import ./home/laptop;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+          }
         ];
-        configuration = { config, pkgs, ... }: {
-          # Additional configuration options can go here
-        };
       };
-    };
 
-    # Dev Shell
-    devShells = {
-      default = inputs.nixpkgs.mkShell {
-        packages = [ inputs.nixpkgs.alejandra inputs.nixpkgs.git inputs.nixpkgs.nix ];
-        name = "nixland";
-        DIRENV_LOG_FORMAT = "";
+      desktop = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/desktop
+        impermanence.nixosModules.impermanence
+        lanzaboote.nixosModules.lanzaboote
+        chaotic.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+          lsfg-vk-flake.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.poacher = import ./home/desktop;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+          }
+        ];
       };
-    };
 
-    # Home Manager integration
-    homeConfigurations = {
-      nixawestic = inputs.hm.lib.homeManagerConfiguration {
-        configuration = ./home/profiles/default.nix;
-        pkgs = inputs.nixpkgs;
+      deck = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/deck
+            impermanence.nixosModules.impermanence
+        lanzaboote.nixosModules.lanzaboote
+        chaotic.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+          lsfg-vk-flake.nixosModules.default
+          jovian.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.poacher = import ./home/deck;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+          }
+        ];
+        specialArgs = {inherit jovian;};
       };
     };
   };
