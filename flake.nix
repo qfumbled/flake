@@ -1,54 +1,37 @@
 {
-  description = "TODO";
+  description = "wug's nixos flake [2025]";
 
   inputs = {
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
-
-    stylix = {
-      url = "github:danth/stylix";
-    };
-
-    jovian = {
-      url = "github:jovian-experiments/jovian-nixos/development";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
+    impermanence.url = "github:nix-community/impermanence";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-    };
-
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-    };
-
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    };
-
-    spicetify-nix = {
+    nur.url = "github:nix-community/NUR";
+ spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
+     anyrun = {
+      url = "github:anyrun-org/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
+    nvim-config.url = "github:kewin-y/nvim-kewin";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    stylix.url = "github:danth/stylix";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    lsfg-vk-flake = {
-      url = "github:pabloaul/lsfg-vk-flake/main";
+    # Niri WM
+    niri = {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -56,94 +39,66 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    plasma-manager,
-    lsfg-vk-flake,
-    nix-flatpak,
-    chaotic,
-    lanzaboote,
     impermanence,
+    nix-flatpak,
+    niri,
+    sops-nix,
     stylix,
-    jovian,
+    spicetify-nix,
+    anyrun,
+    nvim-config,
+    nur,
+    zen-browser,
     ...
   }: let
+    username = "wug";
     system = "x86_64-linux";
 
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [
+        niri.overlays.niri
+      ];
     };
 
     commonModules = [
       impermanence.nixosModules.impermanence
-      lanzaboote.nixosModules.lanzaboote
-      chaotic.nixosModules.default
       nix-flatpak.nixosModules.nix-flatpak
       home-manager.nixosModules.home-manager
+      stylix.nixosModules.stylix
       {
         home-manager.extraSpecialArgs = {
           inherit inputs system;
         };
-        home-manager.sharedModules = [
-          plasma-manager.homeManagerModules.plasma-manager
-        ];
       }
     ];
+
+    # Merge Nixpkgs, Home Manager, and your custom lib
+    lib = nixpkgs.lib // home-manager.lib // (import ./lib { inherit (nixpkgs) lib; });
+
   in {
-    nixosModules.lanzaboote = import lanzaboote;
+    nixosConfigurations.magnus = nixpkgs.lib.nixosSystem {
+      inherit system pkgs;
 
-    nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules =
-          [
-            ./hosts/laptop
-            stylix.nixosModules.stylix
+      modules =
+        [
+          ./hosts/magnus
+         # niri.nixosModules.niri
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = import ./home/profiles/magnus.nix;
+          }
+        ] ++ commonModules;
 
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.monaco = import ./home/laptop;
-            }
-          ]
-          ++ commonModules;
-        pkgs = pkgs;
+      specialArgs = {
+        inherit inputs system;
       };
+    };
 
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules =
-          [
-            ./hosts/desktop
-            lsfg-vk-flake.nixosModules.default  # Added lsfg-vk-flake to desktop
-
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.monaco = import ./home/desktop;
-            }
-          ]
-          ++ commonModules;
-        pkgs = pkgs;
-      };
-
-      deck = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules =
-          [
-            ./hosts/deck
-            lsfg-vk-flake.nixosModules.default  # Added lsfg-vk-flake to deck
-            jovian.nixosModules.default         # Added jovian to deck
-
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.monaco = import ./home/deck;
-            }
-          ]
-          ++ commonModules;
-        pkgs = pkgs;
-        specialArgs = { inherit jovian; };
-      };
+    packages = {
+      default = pkgs.hello; # Example default package
     };
   };
 }

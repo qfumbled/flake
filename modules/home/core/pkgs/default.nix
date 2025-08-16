@@ -1,0 +1,111 @@
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
+let
+  app2unit = pkgs.callPackage ../../../../packages/app2unit { };
+in
+{
+  home = {
+    username = "wug";
+    homeDirectory = "/home/wug";
+    stateVersion = "23.11";
+
+    packages = with pkgs; [
+      inputs.zen-browser.packages.${system}.default
+      inputs.nvim-config.packages.${pkgs.system}.default
+      app2unit
+      fastfetch
+      asciinema_3
+      bruno
+      charm
+      charm-freeze
+      circumflex
+      clipse
+      colordiff
+      deadnix
+      delta
+      docker-compose
+      doggo
+      eza
+      fd
+      feh
+      fx
+      fzf
+      gcc
+      gh
+      git-absorb
+      gitmoji-cli
+      glab
+      glow
+      gnumake
+      go
+      gping
+      grimblast
+      gum
+      helmfile
+      httpie
+      imagemagick
+      inotify-tools
+      jq
+      jqp
+      just
+      k9s
+      keybase
+      kubecolor
+      kubectl
+      kubectx
+      kubernetes-helm
+      light
+      material-symbols
+      magic-wormhole
+      mods
+      nemo
+      networkmanagerapplet
+      nh
+      nix-fast-build
+      nix-inspect
+      nix-output-monitor
+      nix-update
+      nixfmt-rfc-style
+      onefetch
+      openssl
+      openvpn
+      opencode
+      opkssh
+      pavucontrol
+      pfetch
+      pgcli
+      pinentry
+      playerctl
+      pre-commit
+      presenterm
+      python312Packages.gst-python
+      python312Packages.pip
+      python312Packages.pygobject3
+      python312Packages.setuptools
+      python312Packages.virtualenv
+      python312Packages.materialyoucolor
+      python312Packages.pillow
+      rustup
+      satty
+      slides
+      sops
+      starship
+      stern
+      syncthing
+      television
+      nix-search-tv
+      tldr
+      update-nix-fetchgit
+      vegeta
+      vial
+      vlc
+      wireplumber
+      xdotool
+      xwayland
+    ];
+  };
+}

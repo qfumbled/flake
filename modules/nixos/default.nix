@@ -1,0 +1,31 @@
+{ lib, ... }:
+{
+  imports = [
+    ./bluetooth
+    ./graphics
+    ./niri
+    ./qt
+    ./system
+    ./wg-client
+    ./bootloader
+    ./impermanence
+    ./nix
+    ./security
+    ./systemd
+    ./kanata
+    ./pkgs
+    ./services
+    ./tpm
+    ./documentation
+    ./locale
+    ./portal
+    ./sops
+    ./user
+    ./flatpak
+    ./networking
+    ./programs
+    ./steam
+    ./virtualisation
+    ./stylix
+  ];
+}
