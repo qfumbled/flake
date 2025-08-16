@@ -12,17 +12,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - hostName: Desktop
-            nixosCfgKey: desktop
-            homeCfgKey: desktop
-            os-label: ubuntu-latest
-          - hostName: Deck
-            nixosCfgKey: deck
-            homeCfgKey: deck
-            os-label: ubuntu-latest
-          - hostName: Laptop
-            nixosCfgKey: laptop
-            homeCfgKey: laptop
+          - hostName: Magnus
+            nixosCfgKey: magnus
+            homeCfgKey: magnus
             os-label: ubuntu-latest
       fail-fast: false
 
