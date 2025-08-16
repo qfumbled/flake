@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.gh];
+{ pkgs, ... }: {
+  home.packages = [ pkgs.gh ];
 
   # enable scrolling in git diff
   home.sessionVariables.DELTA_PAGER = "less -R";
@@ -34,17 +34,38 @@
       };
     };
 
+    # Use nested attribute sets for extraConfig
     extraConfig = {
-      init.defaultBranch = "main";
-      diff.colorMoved = "default";
-      merge.conflictstyle = "diff3";
-      push.autoSetupRemote = true;
-      core.editor = "zeditor";
-      push.default = "current";
-      merge.stat = "true";
-      core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-      repack.usedeltabaseoffset = "true";
-      pull.ff = "only";
+      commit = {
+        gpgsign = false;  # disable commit signing
+      };
+      user = {
+        signingkey = "";
+      };
+      init = {
+        defaultBranch = "main";
+      };
+      diff = {
+        colorMoved = "default";
+      };
+      merge = {
+        conflictstyle = "diff3";
+        stat = "true";
+      };
+      push = {
+        autoSetupRemote = true;
+        default = "current";
+      };
+      core = {
+        editor = "nvim";  # use Neovim as editor
+        whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+      };
+      repack = {
+        usedeltabaseoffset = "true";
+      };
+      pull = {
+        ff = "only";
+      };
       rebase = {
         autoSquash = true;
         autoStash = true;
