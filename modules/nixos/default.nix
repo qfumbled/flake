@@ -3,7 +3,7 @@
   imports = [
     ./bluetooth
     ./graphics
-    ./niri
+    ./hyprland
     ./qt
     ./system
     ./wg-client
