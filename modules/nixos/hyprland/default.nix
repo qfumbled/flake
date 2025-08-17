@@ -13,7 +13,7 @@
     waylandCompositors.sway = {
       prettyName = "SwayFX";
       comment = "SwayFX compositor managed by UWSM";
-      binPath = "/etc/profiles/per-user/gwen/bin/sway";
+      binPath = "/etc/profiles/per-user/wug/bin/sway";
     };
   };
 }
