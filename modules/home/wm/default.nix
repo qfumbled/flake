@@ -2,6 +2,7 @@
 
 {
   imports = [
-    ./niri
+    ./hyprland
+    ./swayfx
   ];
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "morewaita";
+      name = "Morewaita";
       package = pkgs.morewaita-icon-theme;
     };
   };
@@ -18,12 +18,10 @@
     allowUnfreePredicate = _: true;
   };
 
-  programs.home-manager.enable = true;
-
-  # Specific packages for this home-manager host config
-  home.packages = with pkgs; [
-    alacritty
-    anyrun
-  ];
+  home = {
+    packages = with pkgs; [
+      teeworlds   # very important to work
+      distrobox
+    ];
+  };
 }
-

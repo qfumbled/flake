@@ -2,36 +2,41 @@
   description = "wug's nixos flake [2025]";
 
   inputs = {
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    impermanence.url = "github:nix-community/impermanence";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
- spicetify-nix = {
+    impermanence.url = "github:nix-community/impermanence";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix.url = "github:danth/stylix";
+    spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    nixvimm.url = "github:qfumbled/nixvim";
 
-     anyrun = {
-      url = "github:anyrun-org/anyrun";
+    ags = {
+      url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim-config.url = "github:kewin-y/nvim-kewin";
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-    stylix.url = "github:danth/stylix";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # Niri WM
-    niri = {
-      url = "github:sodiboo/niri-flake";
+    swayfx = {
+      url = "github:WillPower3309/swayfx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -41,14 +46,15 @@
     home-manager,
     impermanence,
     nix-flatpak,
-    niri,
     sops-nix,
     stylix,
     spicetify-nix,
-    anyrun,
-    nvim-config,
+    nixvimm,
     nur,
     zen-browser,
+    ags,
+    astal,
+    swayfx,
     ...
   }: let
     username = "wug";
@@ -57,9 +63,6 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [
-        niri.overlays.niri
-      ];
     };
 
     commonModules = [
@@ -68,14 +71,14 @@
       home-manager.nixosModules.home-manager
       stylix.nixosModules.stylix
       {
-        home-manager.extraSpecialArgs = {
-          inherit inputs system;
-        };
+        home-manager.extraSpecialArgs = { inherit inputs system; };
       }
     ];
 
-    # Merge Nixpkgs, Home Manager, and your custom lib
-    lib = nixpkgs.lib // home-manager.lib // (import ./lib { inherit (nixpkgs) lib; });
+    lib =
+      nixpkgs.lib
+      // home-manager.lib
+      // (import ./lib { inherit (nixpkgs) lib; });
 
   in {
     nixosConfigurations.magnus = nixpkgs.lib.nixosSystem {
@@ -84,21 +87,16 @@
       modules =
         [
           ./hosts/magnus
-         # niri.nixosModules.niri
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./home/profiles/magnus.nix;
+            home-manager.users.${username} =
+              import ./home/profiles/magnus.nix;
           }
-        ] ++ commonModules;
+        ]
+        ++ commonModules;
 
-      specialArgs = {
-        inherit inputs system;
-      };
-    };
-
-    packages = {
-      default = pkgs.hello; # Example default package
+      specialArgs = { inherit inputs system; };
     };
   };
 }
