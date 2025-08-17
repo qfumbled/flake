@@ -3,6 +3,5 @@
 {
   imports = [
     ./niri
-    ./river
   ];
 }
