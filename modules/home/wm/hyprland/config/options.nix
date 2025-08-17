@@ -16,32 +16,18 @@ in
       "systemctl --user restart xdg-desktop-portal-wlr.service"
     ];
 
-    animations = {
-      enabled = true;
-      first_launch_animation = true;
+    general = {
+      gaps_in = "8";
+      gaps_out = "12";
+      border_size = "0";
+      layout = "dwindle";
+      resize_on_border = "true";
 
-      bezier = [
-        "easeOutQuart, 0.25, 1, 0.5, 1"
-      ];
+      # Hyprland wins conflicts
+      "col.active_border" = mkForce "rgba(88888888)";
+      "col.inactive_border" = mkForce "rgba(00000088)";
 
-      animation = [
-        "global, 1, 5, default"
-        "border, 1, 5, easeOutQuart"
-        "windows, 1, 3, easeOutQuart"
-        "windowsIn, 1, 3, easeOutQuart, slide"
-        "windowsOut, 1, 3, easeOutQuart, slide"
-        "windowsMove, 1, 3, easeOutQuart, slide"
-        "layers, 1, 3, easeOutQuart"
-        "layersIn, 1, 3, easeOutQuart, fade"
-        "layersOut, 1, 3, easeOutQuart, fade"
-        "fade, 1, 3, easeOutQuart"
-        "fadeIn, 1, 3, easeOutQuart"
-        "fadeOut, 1, 3, easeOutQuart"
-        "fadeLayersIn, 1, 3, easeOutQuart"
-        "fadeLayersOut, 1, 3, easeOutQuart"
-        "workspaces, 1, 5, easeOutQuart, slide"
-        "specialWorkspace, 1, 5, easeOutQuart, slidevert"
-      ];
+      allow_tearing = true;
     };
 
     decoration = {
@@ -66,31 +52,9 @@ in
     env = [
       "GDK_SCALE,1"
       "WLR_DRM_NO_ATOMIC,1"
-      "XDG_SESSION_DESKTOP,${mkForce "Hyprland"}"
     ];
 
-    general = {
-      gaps_in = "8";
-      gaps_out = "12";
-      border_size = "0";
-      layout = "dwindle";
-      resize_on_border = "true";
-      "col.active_border" = mkForce "rgba(88888888)";
-      "col.inactive_border" = mkForce "rgba(00000088)";
-      allow_tearing = true;
-    };
-
-    gestures = {
-      workspace_swipe = true;
-      workspace_swipe_forever = true;
-    };
-
-    group = {
-      groupbar = {
-        font_size = 16;
-        gradients = false;
-      };
-    };
+    gestures.workspace_swipe = true;
 
     input = {
       kb_layout = "us";
@@ -125,4 +89,6 @@ in
 
     xwayland.force_zero_scaling = true;
   };
+
+  home.sessionVariables.XDG_SESSION_DESKTOP = mkForce "Hyprland";
 }
