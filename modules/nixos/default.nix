@@ -27,5 +27,6 @@
     ./steam
     ./virtualisation
     ./stylix
+    ./river
   ];
 }

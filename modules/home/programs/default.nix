@@ -3,7 +3,6 @@
  ...
 }: {
   imports = [
-  ./anyrun
   ./yamlfmt
   ./yamllint
  ];
