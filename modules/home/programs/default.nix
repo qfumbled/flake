@@ -3,9 +3,10 @@
  ...
 }: {
   imports = [
+  ./rofi
+  ./fuzzel
+  ./zellij
   ./yamlfmt
   ./yamllint
-  ./rofi
-  ./zellij
  ];
  }

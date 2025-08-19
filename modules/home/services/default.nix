@@ -1,6 +1,7 @@
-{
+{ 
  imports = [
- #./ags
- ./waybar
+# ./ags
+  ./waybar
+  ./mako
 ];
  }

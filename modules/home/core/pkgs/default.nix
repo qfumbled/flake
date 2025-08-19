@@ -1,20 +1,15 @@
-{
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, username, inputs, ... }:
+
 let
   app2unit = pkgs.callPackage ../../../../packages/app2unit { };
 in
 {
   home = {
-    username = "wug";
-    homeDirectory = "/home/wug";
+    homeDirectory = "/home/${username}";
     stateVersion = "23.11";
 
     packages = with pkgs; [
-      inputs.zen-browser.packages.${system}.default
+      inputs.zen-browser.packages.${pkgs.system}.default
       inputs.nixvimm.packages.${pkgs.system}.default
       app2unit
       fastfetch

@@ -20,8 +20,6 @@
     };
     impermanence.enable = true;
   };
-
-  # backup just in case if my niri config breaks
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 

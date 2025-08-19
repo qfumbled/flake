@@ -4,6 +4,7 @@
     ./gpg-agent
     ./pkgs
     ./rnnoise
+    ./xdg
   ];
 }
 

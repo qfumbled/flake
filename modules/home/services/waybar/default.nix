@@ -1,9 +1,9 @@
+{ config, pkgs, lib, ... }:
+
+let
+  colors = config.lib.stylix.colors.withHashtag;
+in
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
   programs.waybar = {
     enable = true;
     settings = [
@@ -15,22 +15,25 @@
         modules-left = ["clock"];
         modules-center = ["wlr/taskbar"];
         modules-right = ["tray" "battery" "wireplumber" "network"];
-        "clock" = {
+
+        clock = {
           tooltip = false;
           interval = 60;
           format = "{:%H:%M}";
           max-length = 25;
         };
+
         "wlr/taskbar" = {
           format = "{app_id}";
           on-click = "minimize-raise";
         };
-        "tray" = {
+
+        tray = {
           icon-size = 12;
           spacing = 8;
         };
-        "battery" = {
-          # :(
+
+        battery = {
           interval = 3;
           states = {
             warning = 30;
@@ -41,13 +44,15 @@
           format-charging = "{icon} {capacity}%";
           max-length = 25;
         };
-        "wireplumber" = {
+
+        wireplumber = {
           format-icons = [" " " " " "];
           format = "{icon} {volume}%";
           format-muted = "  {volume}%";
           on-click = "${pkgs.pamixer}/bin/pamixer --toggle-mute";
         };
-        "network" = {
+
+        network = {
           format = "{ifname}";
           format-wifi = "{essid}";
           format-ethernet = "Wired";
@@ -60,7 +65,8 @@
         };
       }
     ];
-    style = with config.lib.stylix.colors.withHashtag; ''
+
+    style = ''
       *:not(separator) {
         all: unset;
         font-family: "Rubik", "Font Awesome 6 Free";
@@ -69,9 +75,9 @@
 
       /* Main Bar */
       window#waybar {
-        background: ${base00};
-        border-top: 2px solid ${base01};
-        color: ${base05};
+        background: ${colors.base00};
+        border-top: 2px solid ${colors.base01};
+        color: ${colors.base05};
       }
 
       window#waybar.hidden {
@@ -87,27 +93,27 @@
       }
 
       menu {
-        background: ${base01};
+        background: ${colors.base01};
         padding: 8px;
       }
 
       menu separator {
-        background: ${base03};
+        background: ${colors.base03};
         margin: 0.4rem 0;
       }
 
       menu menuitem {
-        color: ${base05};
+        color: ${colors.base05};
         padding: 0.8rem;
       }
 
       menu menuitem:hover {
-        background: ${base02};
+        background: ${colors.base02};
       }
 
       tooltip {
-        background: ${base01};
-        color: ${base05};
+        background: ${colors.base01};
+        color: ${colors.base05};
       }
 
       tooltip label {
@@ -138,7 +144,7 @@
 
       #taskbar button:hover,
       #taskbar button.active {
-        background: ${base02};
+        background: ${colors.base02};
       }
     '';
   };

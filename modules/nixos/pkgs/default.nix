@@ -18,7 +18,7 @@ in
   config = {
     environment.systemPackages = with pkgs; [
       sops
-
+      dconf
       age
       bat
       blueman

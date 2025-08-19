@@ -2,7 +2,6 @@
 
 {
   programs.home-manager.enable = true;
-
   imports = [
     ./core
     ./programs

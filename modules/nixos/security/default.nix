@@ -3,6 +3,8 @@
     rtkit.enable = true;
     pam.services = {
       astal-auth = { };
+      waylock = { };
+
       greetd = {
         gnupg.enable = true;
         enableGnomeKeyring = true;
