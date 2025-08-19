@@ -5,6 +5,7 @@
     ./pkgs
     ./rnnoise
     ./xdg
+    ./sops
   ];
 }
 

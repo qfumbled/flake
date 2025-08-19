@@ -27,5 +27,7 @@
     ./steam
     ./virtualisation
     ./stylix
+    ./gnome
+    ./nautilus
   ];
 }

@@ -19,18 +19,9 @@ with lib.hm.gvariant; {
       disabled = ["org.gnome.Boxes.desktop"];
       enabled = ["org.gnome.Weather.desktop"];
       sort-order = [
-        "org.gnome.Contacts.desktop"
-        "org.gnome.Documents.desktop"
+        "spotify.desktop"
         "org.gnome.Nautilus.desktop"
-        "org.gnome.Calendar.desktop"
-        "org.gnome.Calculator.desktop"
-        "org.gnome.Software.desktop"
         "org.gnome.Settings.desktop"
-        "org.gnome.clocks.desktop"
-        "org.gnome.design.IconLibrary.desktop"
-        "org.gnome.seahorse.Application.desktop"
-        "org.gnome.Weather.desktop"
-        "org.gnome.Boxes.desktop"
       ];
     };
 
@@ -105,7 +96,6 @@ with lib.hm.gvariant; {
     "org/gnome/shell" = {
       favorite-apps = [
         "zen-beta.desktop"
-        "wezterm.desktop"
         "org.gnome.Nautilus.desktop"
         "spotify.desktop"
       ];
