@@ -9,7 +9,7 @@ in
     stateVersion = "23.11";
 
     packages = with pkgs; [
-      inputs.zen-browser.packages.${pkgs.system}.default
+    #  inputs.zen-browser.packages.${pkgs.system}.default
       inputs.nixvimm.packages.${pkgs.system}.default
       app2unit
       fastfetch
@@ -101,6 +101,7 @@ in
       wireplumber
       xdotool
       xwayland
+      nerd-fonts.iosevka
     ];
   };
 }

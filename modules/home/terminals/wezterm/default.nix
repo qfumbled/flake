@@ -16,7 +16,6 @@
 
         -- Fonts
         font         = wez.font_with_fallback({
-          "Iosevka Nerd Font Mono",
           "Material Design Icons",
         }),
         dpi = 96.0,

@@ -3,6 +3,5 @@
 {
   imports = [
   ./labwc
-  ./gnome
   ];
 }

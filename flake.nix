@@ -6,6 +6,12 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
+ firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
@@ -45,22 +51,8 @@
       url = "github:nix-community/NUR";
     };
 
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-    };
-
     nixvimm = {
       url = "github:qfumbled/nixvim";
-    };
-
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -74,9 +66,7 @@
     spicetify-nix,
     nixvimm,
     nur,
-    zen-browser,
-    ags,
-    astal,
+    firefox-addons,
     ...
   }: let
     username = "wug";
@@ -112,6 +102,7 @@
         [
           ./hosts/magnus
           {
+            home-manager.backupFileExtension = "bak";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${username} =

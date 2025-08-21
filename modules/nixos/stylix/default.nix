@@ -12,14 +12,14 @@ in
     theme = {
       stylix = {
         polarity = lib.mkOption {
-          default = "light";
+          default = "dark";
           type = lib.types.enum [
             "dark"
             "light"
           ];
         };
         themeName = lib.mkOption {
-          default = "test";
+          default = "far";
           type = lib.types.enum [
             "far"
             "test"
@@ -34,7 +34,7 @@ in
       enable = true;
 
       # Placeholder (literally doesn't matter)
-      image = ../../../home/shared/wallpapers/accordion.png;
+      image = ../../../home/shared/wallpapers/leaving-breeze.jpg;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;

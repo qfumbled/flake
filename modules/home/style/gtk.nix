@@ -4,8 +4,8 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = lib.mkForce "MoreWaita";
-      package = pkgs.morewaita-icon-theme;
+      name = lib.mkForce "Papirus-Dark";
+      package = pkgs.papirus-icon-theme.override {color = "blue";};
     };
   };
 

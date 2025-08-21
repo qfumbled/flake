@@ -10,5 +10,6 @@
     ./terminals
     ./shells
     ./services
+    ./browser
   ];
 }

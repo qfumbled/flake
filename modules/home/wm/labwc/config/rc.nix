@@ -44,7 +44,7 @@
         <keybind key="W-s">
           <action name="Iconify" />
         </keybind>
-        <keybind key="W-w">
+        <keybind key="W-q">
           <action name="Close" />
         </keybind>
         <keybind key="W-r">
