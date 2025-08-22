@@ -51,7 +51,7 @@
       url = "github:nix-community/NUR";
     };
 
-    nixvimm = {
+    nixvim = {
       url = "github:qfumbled/nixvim";
     };
   };
@@ -64,7 +64,7 @@
     sops-nix,
     stylix,
     spicetify-nix,
-    nixvimm,
+    nixvim,
     nur,
     firefox-addons,
     ...
