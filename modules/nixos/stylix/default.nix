@@ -12,14 +12,14 @@ in
     theme = {
       stylix = {
         polarity = lib.mkOption {
-          default = "dark";
+          default = "light";
           type = lib.types.enum [
             "dark"
             "light"
           ];
         };
         themeName = lib.mkOption {
-          default = "far";
+          default = "test";
           type = lib.types.enum [
             "far"
             "test"

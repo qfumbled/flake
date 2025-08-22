@@ -10,7 +10,7 @@ in
 
     packages = with pkgs; [
     #  inputs.zen-browser.packages.${pkgs.system}.default
-      inputs.nixvimm.packages.${pkgs.system}.default
+      inputs.nixvim.packages.${pkgs.system}.default
       app2unit
       fastfetch
       asciinema_3
