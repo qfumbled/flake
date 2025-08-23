@@ -1,6 +1,10 @@
-> As of Augusto 18, 2025
+# flake
 
-## shots. (will add dark mode ones soon but im lazy)
+## Info
 
-![labwc-light](./assets/labwc-light.png)
-![labwc-light2](./assets/labwc-light2.png)
+- wm/compositor: labwc
+- editor: [nixvim](https://github.com/qfumbled/nixvim)
+
+## Notes
+
+- idk yet
