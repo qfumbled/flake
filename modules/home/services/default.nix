@@ -1,8 +1,4 @@
-{ 
- imports = [
-  ./vicinae
-  ./fuzzel
-  ./waybar
-  ./mako
-];
- }
+{ lib, ... }:
+{
+  imports = lib.meadow.readSubdirs ./.;
+}

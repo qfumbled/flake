@@ -1,7 +1,18 @@
-{ config, pkgs, ... }:
+{ lib, config, ... }:
+let
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    ;
 
+  cfg = config.meadow.services.kanata;
+in
 {
-  services.kanata = {
+  options.meadow.services.kanata = {
+    enable = mkEnableOption "kanata";
+  };
+
+  config.services.kanata = mkIf cfg.enable {
     enable = true;
     keyboards = {
       internalKeyboard = {

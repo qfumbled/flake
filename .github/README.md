@@ -7,4 +7,4 @@
 - shell: mksh/fish
 ## Notes
 
-- idk yet
+- this flake uses pipe opts enable it by going to /etc/nixos/configuration.nix and adding this `nix.settings.experimental-features = [ "pipe-operators" ];`

@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd labwc";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd labwc";
         user = username;
       };
     };

@@ -6,6 +6,7 @@
       "wezterm"
       "foot"
       "kitty"
+      "ghostty"
     ];
     default = "foot";
   };

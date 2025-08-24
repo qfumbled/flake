@@ -6,29 +6,37 @@
   ];
 
   meadow = {
+
+style = {
+      theme = "far";
+      polarity = "dark";
+    };
+
     default = {
       shell = [
         "fish"
-       # "mksh" soon i guess.. 
+        #"zsh"
       ];
       wm       = "labwc";
       terminal = "foot";
     };
-
-     browser = {
+     
+    browser = {
       firefox.enable = true;
     };
 
     programs = {
       yamlfmt.enable = true;
       yamllint.enable = true;
-      # soon zellij.enable = true;
-      # soon lazygit.enable = true;
+      zellij.enable = true;
+      lazygit.enable = true;
+      obsidian.enable = false;
     };
 
     services = {
       waybar.enable = true;
       mako.enable   = true;
+      fuzzel.enable = true;
     };
   };
 
