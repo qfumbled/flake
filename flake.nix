@@ -33,11 +33,6 @@
       url = "github:gmodena/nix-flatpak";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     stylix = {
       url = "github:danth/stylix";
     };
@@ -61,7 +56,6 @@
     home-manager,
     impermanence,
     nix-flatpak,
-    sops-nix,
     stylix,
     spicetify-nix,
     nixvim,

@@ -14,6 +14,6 @@
         "adbusers"
       ];
     };
-    defaultUserShell = pkgs.fish;
+    defaultUserShell = pkgs.mksh;
   };
 }

@@ -4,7 +4,8 @@
 }: {
   imports = [
   ./rofi
-  ./fuzzel
+  ./yazi
+  ./atuin
   ./zellij
   ./yamlfmt
   ./yamllint

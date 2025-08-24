@@ -19,7 +19,6 @@
     ./documentation
     ./locale
     ./portal
-    ./sops
     ./user
     ./flatpak
     ./networking
@@ -28,6 +27,5 @@
     ./virtualisation
     ./stylix
     ./greetd
-    ./nautilus
   ];
 }

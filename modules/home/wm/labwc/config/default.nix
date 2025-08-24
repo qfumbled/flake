@@ -5,6 +5,6 @@
     ./menu.nix
     ./autostart.nix
     ./environment.nix
-    ./workspace.nix
+#    ./workspace.nix
   ];
 }

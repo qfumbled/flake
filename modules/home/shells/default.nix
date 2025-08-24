@@ -1,6 +1,6 @@
 {
   imports = [
-  ./zsh
+  ./mksh
   ./fish
   ./starship
   ];

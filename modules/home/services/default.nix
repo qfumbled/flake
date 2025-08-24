@@ -1,6 +1,7 @@
 { 
  imports = [
-# ./ags
+  ./vicinae
+  ./fuzzel
   ./waybar
   ./mako
 ];

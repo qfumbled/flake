@@ -19,9 +19,11 @@ in
           ];
         };
         themeName = lib.mkOption {
-          default = "test";
+          default = "far";
           type = lib.types.enum [
             "far"
+            "paradise"
+            "grayscale"
             "test"
           ];
         };
