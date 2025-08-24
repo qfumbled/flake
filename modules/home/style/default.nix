@@ -5,10 +5,6 @@ let
   inherit (lib) mkOption types;
 in
 {
-  imports = [
-    inputs.stylix.homeManager.stylix
-  ];
-
   options.meadow.style = {
     wallpaper = mkOption {
       type = types.path;
