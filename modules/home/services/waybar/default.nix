@@ -1,11 +1,18 @@
+{ config, lib, pkgs, ... }:
+
+let
+  inherit (lib) mkIf mkEnableOption;
+
+  cfg = config.meadow.services.waybar;
+in
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
-  programs.waybar = {
+  # Option to enable/disable Waybar in Meadow
+  options.meadow.services.waybar.enable = mkEnableOption "Enable Waybar integration in Meadow";
+
+  # Conditional Waybar configuration
+  config.programs.waybar = with config.lib.stylix.colors.withHashtag; mkIf cfg.enable {
     enable = true;
+
     settings = [
       {
         layer = "top";
@@ -15,22 +22,25 @@
         modules-left = ["clock"];
         modules-center = ["wlr/taskbar"];
         modules-right = ["tray" "battery" "wireplumber" "network"];
+
         "clock" = {
           tooltip = false;
           interval = 60;
           format = "{:%H:%M}";
           max-length = 25;
         };
+
         "wlr/taskbar" = {
           format = "{app_id}";
           on-click = "minimize-raise";
         };
+
         "tray" = {
           icon-size = 12;
           spacing = 8;
         };
+
         "battery" = {
-          # :(
           interval = 3;
           states = {
             warning = 30;
@@ -41,12 +51,14 @@
           format-charging = "{icon} {capacity}%";
           max-length = 25;
         };
+
         "wireplumber" = {
           format-icons = [" " " " " "];
           format = "{icon} {volume}%";
           format-muted = "  {volume}%";
           on-click = "${pkgs.pamixer}/bin/pamixer --toggle-mute";
         };
+
         "network" = {
           format = "{ifname}";
           format-wifi = "{essid}";
@@ -60,7 +72,8 @@
         };
       }
     ];
-    style = with config.lib.stylix.colors.withHashtag; ''
+
+    style = ''
       *:not(separator) {
         all: unset;
         font-family: "Rubik", "Font Awesome 6 Free";

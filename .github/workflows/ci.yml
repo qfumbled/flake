@@ -6,6 +6,9 @@ on:
       - "**.nix"
       - "flake.lock"
       - ".github/workflows/ci.yaml"
+  schedule:
+    # Runs every day at 00:00 UTC
+    - cron: "0 0 * * *"
 
 jobs:
   build-config:
@@ -15,6 +18,10 @@ jobs:
           - hostName: Magnus
             nixosCfgKey: magnus
             homeCfgKey: magnus
+            os-label: ubuntu-latest
+          - hostName: Akatosh
+            nixosCfgKey: akatosh
+            homeCfgKey: akatosh
             os-label: ubuntu-latest
       fail-fast: false
 
@@ -60,3 +67,31 @@ jobs:
 
       - name: Check Flake
         run: nix flake check --keep-going
+
+  update_flake_lock:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "experimental-features = nix-command flakes"
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Commit & Push if Updated
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add flake.lock
+            git commit -m "automatic chore: flake lock update"
+            git push
+          else
+            echo "flake.lock is up to date. Nothing to commit."

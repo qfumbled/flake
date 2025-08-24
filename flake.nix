@@ -6,11 +6,10 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
- firefox-addons = {
+    firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
 
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -68,7 +67,10 @@
 
     pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
     };
 
     commonModules = [
@@ -85,27 +87,47 @@
 
     lib =
       nixpkgs.lib
-      // home-manager.lib
-      // (import ./lib { inherit (nixpkgs) lib; });
+      // home-manager.lib;
 
   in {
-    nixosConfigurations.magnus = nixpkgs.lib.nixosSystem {
-      inherit system pkgs;
+    nixosConfigurations = {
+      magnus = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
 
-      modules =
-        [
-          ./hosts/magnus
-          {
-            home-manager.backupFileExtension = "bak";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} =
-              import ./home/profiles/magnus.nix;
-          }
-        ]
-        ++ commonModules;
+        modules =
+          [
+            ./hosts/magnus
+            {
+              home-manager.backupFileExtension = "bak";
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} =
+                import ./home/profiles/magnus.nix;
+            }
+          ]
+          ++ commonModules;
 
-      specialArgs = { inherit inputs system username; };
+        specialArgs = { inherit inputs system username; };
+      };
+
+      akatosh = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+
+        modules =
+          [
+            ./hosts/akatosh
+            {
+              home-manager.backupFileExtension = "bak";
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} =
+                import ./home/profiles/akatosh.nix;
+            }
+          ]
+          ++ commonModules;
+
+        specialArgs = { inherit inputs system username; };
+      };
     };
   };
 }
