@@ -4,12 +4,14 @@ let
   app2unit = pkgs.callPackage ../../../../packages/app2unit { };
 in
 {
+  programs.home-manager.enable = true;
+
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "23.11";
 
     packages = with pkgs; [
-    #  inputs.zen-browser.packages.${pkgs.system}.default
+      # inputs.zen-browser.packages.${pkgs.system}.default
       inputs.nixvim.packages.${pkgs.system}.default
       app2unit
       fastfetch

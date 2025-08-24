@@ -1,8 +1,12 @@
+{ lib, ... }:
 {
- imports = [
- ./wezterm
- ./foot
- ./kitty
- ./ghostty
- ];
+  imports = lib.meadow.readSubdirs ./.;
+  options.meadow.default.terminal = lib.mkOption {
+    type = lib.types.enum [
+      "wezterm"
+      "foot"
+      "kitty"
+    ];
+    default = "foot";
+  };
 }

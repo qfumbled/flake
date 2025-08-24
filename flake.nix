@@ -1,5 +1,110 @@
 {
-  description = "wug's nixos flake [2025]";
+  description = "Wug's NixOS System";
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      firefox-addons,
+      flake-utils,
+      flake-parts,
+      hm,
+      impermanence,
+      nix-flatpak,
+      stylix,
+      spicetify-nix,
+      nur,
+      nixvim,
+      pre-commit-hooks,
+      ...
+    }@inputs:
+    let
+      outputs = self;
+
+      mkLib = pkgs: pkgs.lib.extend (final: prev: (import ./lib final pkgs) // hm.lib);
+
+      packages = nixpkgs.legacyPackages;
+
+      systemDefault = "x86_64-linux";
+      # systemDefault = "aarch64-linux"
+
+      mkSystem = {
+        system ? systemDefault,
+        systemConfig,
+        userConfigs,
+        username ? "wug",
+        lib ? mkLib packages.${system}
+      }: let
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+
+          specialArgs = { inherit inputs self lib username; };
+
+          modules = [
+            { nixpkgs.hostPlatform = system; }
+            systemConfig
+            hm.nixosModules.home-manager
+            stylix.nixosModules.stylix
+            nix-flatpak.nixosModules.nix-flatpak
+            impermanence.nixosModules.impermanence
+            ./modules/nixos
+            {
+              home-manager.sharedModules = [ ./modules/home ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs self lib username; };
+              home-manager.users.${username}.imports = [ userConfigs ];
+            }
+          ];
+        };
+
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      checks = forAllSystems (system: {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            deadnix.enable = true;
+            nixfmt-rfc-style.enable = true;
+          };
+        };
+      });
+
+      devShells = forAllSystems (system: {
+        default = packages.${system}.mkShell {
+          inherit (checks.${system}.pre-commit-check) shellHook;
+          buildInputs = checks.${system}.pre-commit-check.enabledPackages;
+        };
+      });
+
+    in {
+      nixosConfigurations = {
+        magnus = mkSystem {
+          systemConfig = ./hosts/magnus;
+          userConfigs = ./home/profiles/magnus.nix;
+          username = "wug";
+        };
+
+        akatosh = mkSystem {
+          systemConfig = ./hosts/akatosh;
+          userConfigs = ./home/profiles/akatosh.nix;
+          username = "wug";
+        };
+      };
+
+      formatter.x86_64-linux = packages.x86_64-linux.nixfmt-rfc-style;
+      devShells = devShells;
+      checks = checks;
+    };
 
   inputs = {
     nixpkgs = {
@@ -19,7 +124,7 @@
       url = "github:hercules-ci/flake-parts";
     };
 
-    home-manager = {
+    hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -48,86 +153,9 @@
     nixvim = {
       url = "github:qfumbled/nixvim";
     };
-  };
 
-  outputs = inputs @ {
-    nixpkgs,
-    home-manager,
-    impermanence,
-    nix-flatpak,
-    stylix,
-    spicetify-nix,
-    nixvim,
-    nur,
-    firefox-addons,
-    ...
-  }: let
-    username = "wug";
-    system = "x86_64-linux";
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-      };
-    };
-
-    commonModules = [
-      impermanence.nixosModules.impermanence
-      nix-flatpak.nixosModules.nix-flatpak
-      home-manager.nixosModules.home-manager
-      stylix.nixosModules.stylix
-      {
-        home-manager.extraSpecialArgs = {
-          inherit inputs system username;
-        };
-      }
-    ];
-
-    lib =
-      nixpkgs.lib
-      // home-manager.lib;
-
-  in {
-    nixosConfigurations = {
-      magnus = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-
-        modules =
-          [
-            ./hosts/magnus
-            {
-              home-manager.backupFileExtension = "bak";
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} =
-                import ./home/profiles/magnus.nix;
-            }
-          ]
-          ++ commonModules;
-
-        specialArgs = { inherit inputs system username; };
-      };
-
-      akatosh = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-
-        modules =
-          [
-            ./hosts/akatosh
-            {
-              home-manager.backupFileExtension = "bak";
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} =
-                import ./home/profiles/akatosh.nix;
-            }
-          ]
-          ++ commonModules;
-
-        specialArgs = { inherit inputs system username; };
-      };
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
     };
   };
 }

@@ -1,12 +1,12 @@
+{ pkgs, lib, config, ... }:
+
+let
+  cfg = config.meadow.default.wm == "labwc";
+in
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
-  imports = [./config];
+  imports = [ ./config ];
+
   home.packages = with pkgs; [
-    labwc
     swaybg
-  ];
+  ] ++ lib.optional cfg labwc;  # include labwc only if cfg is true
 }

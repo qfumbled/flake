@@ -1,15 +1,4 @@
-{ config, pkgs, ... }:
-
+{ lib, ... }:
 {
-  programs.home-manager.enable = true;
-  imports = [
-    ./core
-    ./programs
-     ./style
-    ./wm
-    ./terminals
-    ./shells
-    ./services
-    ./browser
-  ];
+  imports = lib.meadow.readSubdirs ./.;
 }

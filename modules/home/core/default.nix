@@ -1,10 +1,4 @@
+{ lib, ... }:
 {
-  imports = [
-    ./git
-    ./gpg-agent
-    ./pkgs
-    ./rnnoise
-    ./xdg
-  ];
+  imports = lib.meadow.readSubdirs ./.;
 }
-

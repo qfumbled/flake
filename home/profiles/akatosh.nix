@@ -6,8 +6,29 @@
   ];
 
   meadow = {
+    default = {
+      shell = [
+        "fish"
+        #"zsh"
+      ];
+      wm       = "labwc";
+      terminal = "foot";
+    };
+     
+    browser = {
+      firefox.enable = true;
+    };
+
+    programs = {
+      yamlfmt.enable = true;
+      yamllint.enable = true;
+      # soon zellij.enable = true;
+      # soon lazygit.enable = true;
+    };
+
     services = {
       waybar.enable = true;
+      mako.enable   = true;
     };
   };
 

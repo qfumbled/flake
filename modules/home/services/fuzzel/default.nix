@@ -1,36 +1,38 @@
+{ config, pkgs, ... }:
+
+let
+  colors = config.lib.stylix.colors.withHashtag;
+  mkF = pkgs.lib.mkForce;
+in
 {
-  config,
-  lib,
-  ...
-}: {
   programs.fuzzel = {
-    enable = true;
-    settings = {
+    enable = true;  # keep as plain boolean
+    settings = mkF {  # force the settings map
       main = {
-        font = "Rubik:size=10";
+        font           = "Rubik:size=10";
         horizontal-pad = 18;
-        vertical-pad = 18;
-        inner-pad = 18;
-        dpi-aware = "no";
-        icons-enabled = "no";
-        line-height = 20;
-        lines = 8;
+        vertical-pad   = 18;
+        inner-pad      = 18;
+        dpi-aware      = "no";
+        icons-enabled  = "no";
+        line-height    = 20;
+        lines          = 8;
       };
       border = {
         radius = 0;
-        width = 2;
+        width  = 2;
       };
-      colors = with config.lib.stylix.colors.withHashtag; {
-        background = "${base00}ff";
-        text = "${base05}ff";
-        selection-text = "${base05}ff";
-        match = "${base0D}ff";
-        prompt = "${base0D}ff";
-        input = "${base05}ff";
-        placeholder = "${base03}ff";
-        selection-match = "${base0D}ff";
-        selection = "${base02}ff";
-        border = "${base01}ff";
+      colors = mkF {  # force the colors map
+        background        = "${colors.base00}ff";
+        text              = "${colors.base05}ff";
+        selection-text    = "${colors.base05}ff";
+        match             = "${colors.base0D}ff";
+        prompt            = "${colors.base0D}ff";
+        input             = "${colors.base05}ff";
+        placeholder       = "${colors.base03}ff";
+        selection-match   = "${colors.base0D}ff";
+        selection         = "${colors.base02}ff";
+        border            = "${colors.base01}ff";
       };
     };
   };

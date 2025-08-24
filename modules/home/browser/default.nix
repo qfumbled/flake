@@ -1,6 +1,4 @@
 { lib, ... }:
- {
-  imports = [
-  ./firefox
-];
+{
+  imports = lib.meadow.readSubdirs ./.;
 }

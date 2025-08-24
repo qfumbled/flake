@@ -1,31 +1,4 @@
 { lib, ... }:
 {
-  imports = [
-    ./bluetooth
-    ./graphics
-    ./labwc
-    ./qt
-    ./system
-    ./wg-client
-    ./bootloader
-    ./impermanence
-    ./nix
-    ./security
-    ./systemd
-    ./kanata
-    ./pkgs
-    ./services
-    ./tpm
-    ./documentation
-    ./locale
-    ./portal
-    ./user
-    ./flatpak
-    ./networking
-    ./programs
-    ./steam
-    ./virtualisation
-    ./stylix
-    ./greetd
-  ];
+  imports = lib.meadow.readSubdirs ./.;
 }
