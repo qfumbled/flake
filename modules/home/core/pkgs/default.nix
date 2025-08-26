@@ -5,11 +5,10 @@ let
 in
 {
   programs.home-manager.enable = true;
-  meadow.style.wallpaper = "${inputs.self}/home/shared/wallpapers/${config.meadow.style.theme}.jpg";
-  
-   home = {
+
+  home = {
     homeDirectory = "/home/${username}";
-    stateVersion = "24.11";
+    stateVersion = "23.11";
 
     packages = with pkgs; [
       # inputs.zen-browser.packages.${pkgs.system}.default

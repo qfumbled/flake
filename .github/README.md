@@ -4,7 +4,9 @@
 
 - wm/compositor: labwc
 - editor: [nixvim](https://github.com/qfumbled/nixvim)
-- shell: mksh/fish
+- shell: mksh
 ## Notes
 
-- this flake uses pipe opts enable it by going to /etc/nixos/configuration.nix and adding this `nix.settings.experimental-features = [ "pipe-operators" ];`
+- try to replace stylix (nixOS module) w/stylix + home-manager module (most of the time it whines)
+- you can now replace your timezone in flake.nix
+- you can replace your username in flake.nix

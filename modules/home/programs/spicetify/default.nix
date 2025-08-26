@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # Import the official spicetify nix module
     inputs.spicetify-nix.homeManagerModules.default
   ];
 

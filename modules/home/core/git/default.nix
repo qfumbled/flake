@@ -34,6 +34,7 @@
       };
     };
 
+    # Use nested attribute sets for extraConfig
     extraConfig = {
       commit = {
         gpgsign = false;  # disable commit signing

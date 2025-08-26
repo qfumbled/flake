@@ -2,27 +2,20 @@
 
 {
   imports = [
-    inputs.stylix.homeModules.stylix
     ../../modules/home
   ];
 
   meadow = {
-
-style = {
-      theme = "far";
-      polarity = "dark";
-    };
-
     default = {
       shell = [
         "fish"
-        #"zsh"
+        "mksh" 
       ];
       wm       = "labwc";
       terminal = "foot";
     };
-     
-    browser = {
+
+     browser = {
       firefox.enable = true;
     };
 
@@ -30,14 +23,13 @@ style = {
       yamlfmt.enable = true;
       yamllint.enable = true;
       zellij.enable = true;
-      lazygit.enable = true;
-      obsidian.enable = false;
+      # soon lazygit.enable = true;
     };
 
     services = {
+      fuzzel.enable = true;
       waybar.enable = true;
       mako.enable   = true;
-      fuzzel.enable = true;
     };
   };
 

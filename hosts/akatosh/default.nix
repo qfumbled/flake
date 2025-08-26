@@ -2,8 +2,11 @@
 
 {
   imports = [
+    inputs.hm.nixosModules.home-manager
+    inputs.impermanence.nixosModules.impermanence
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+    inputs.stylix.nixosModules.stylix
     ./hardware.nix
-    ../../modules/nixos
   ];
 
   networking.hostName = "akatosh";
@@ -15,9 +18,8 @@
       steam.enable = false;
     };
     services = {
+      kanata.enable = false;
       pipewire.enable = true;
-      tpm.enable = true;
-      kanata.enable = true;
       wireguard.enable = false;
     };
     impermanence.enable = true;

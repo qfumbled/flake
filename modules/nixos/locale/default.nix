@@ -1,5 +1,8 @@
+{ config, pkgs, lib, zone, ... }:
+
 {
-  time.timeZone = "America/New_York";
+  time.timeZone = zone;
+
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {

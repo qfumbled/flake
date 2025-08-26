@@ -5,6 +5,7 @@
     {
       self,
       nixpkgs,
+      nur,
       firefox-addons,
       flake-utils,
       flake-parts,
@@ -13,7 +14,6 @@
       nix-flatpak,
       stylix,
       spicetify-nix,
-      nur,
       nixvim,
       pre-commit-hooks,
       ...
@@ -25,38 +25,31 @@
 
       packages = nixpkgs.legacyPackages;
 
-      systemDefault = "x86_64-linux";
-      # systemDefault = "aarch64-linux"
-
       mkSystem = {
-        system ? systemDefault,
+        system ? "x86_64-linux",
         systemConfig,
         userConfigs,
         username ? "wug",
-        lib ? mkLib packages.${system}
+        lib ? mkLib packages.${system},
+        zone ? "America/New_York"
       }: let
         pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
       in
         nixpkgs.lib.nixosSystem {
           inherit system pkgs;
 
-          specialArgs = { inherit inputs self lib username; };
+          specialArgs = { inherit inputs self lib username zone; };
 
           modules = [
             { nixpkgs.hostPlatform = system; }
             systemConfig
-            hm.nixosModules.home-manager
-            stylix.nixosModules.stylix
-            nix-flatpak.nixosModules.nix-flatpak
-            impermanence.nixosModules.impermanence
             ./modules/nixos
             {
+
               home-manager.sharedModules = [ ./modules/home ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { 
-               inherit inputs self lib username;
-              };
+              home-manager.extraSpecialArgs = { inherit inputs self lib username zone; };
               home-manager.users.${username}.imports = [ userConfigs ];
             }
           ];
