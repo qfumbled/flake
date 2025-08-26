@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ... } @ args:
+
+let
+  inputs = args.inputs;
+in
 
 {
   imports = [
@@ -24,6 +28,7 @@
     };
     impermanence.enable = true;
   };
+
   security.rtkit.enable = true;
   services.printing.enable = true;
 }

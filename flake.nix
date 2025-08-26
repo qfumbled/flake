@@ -31,7 +31,7 @@
         userConfigs,
         username ? "wug",
         lib ? mkLib packages.${system},
-        zone ? "Europe/Budapest"
+        zone ? "America/New_York"
       }: let
         pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
       in

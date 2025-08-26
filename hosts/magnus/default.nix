@@ -1,11 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ... } @ args:
+
+let
+  inputs = args.inputs;
+in
 
 {
   imports = [
-     inputs.hm.nixosModules.home-manager
-     inputs.impermanence.nixosModules.impermanence
-     inputs.nix-flatpak.nixosModules.nix-flatpak
-     inputs.stylix.nixosModules.stylix
+    inputs.hm.nixosModules.home-manager
+    inputs.impermanence.nixosModules.impermanence
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+    inputs.stylix.nixosModules.stylix
     ./hardware.nix
   ];
 
@@ -18,12 +22,13 @@
       steam.enable = false;
     };
     services = {
-      pipewire.enable = true;
       kanata.enable = true;
+      pipewire.enable = true;
       wireguard.enable = false;
     };
     impermanence.enable = true;
   };
+
   security.rtkit.enable = true;
   services.printing.enable = true;
 }
