@@ -23,6 +23,7 @@ in
     };
     services = {
       kanata.enable = true;
+      tpm.enable = true;
       pipewire.enable = true;
       wireguard.enable = false;
     };

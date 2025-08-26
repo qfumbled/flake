@@ -28,42 +28,70 @@ in
     };
 
     home.file.".mkshrc".text = ''
-      # vim: ft=sh
-      alias v='nvim'
-      alias  l='eza -lh'
-      alias ls='eza'
-      alias ll='eza -lha --sort=name --group-directories-first'
-      alias ld='eza -lhD '
-      alias yz='yazi'
+  # vim: ft=sh
+  alias v='nvim'
+  alias l='eza -lh'
+  alias ls='eza'
+  alias ll='eza -lha --sort=name --group-directories-first'
+  alias ld='eza -lhD'
+  alias yz='yazi'
 
-      HISTFILE=$HOME/.mksh_history
-      HISTSIZE=5000
-      HISTCONTROL=ignoreboth
+  HISTFILE=$HOME/.mksh_history
+  HISTSIZE=5000
+  HISTCONTROL=ignoreboth
 
-      ${fzfOpts}
+  ${fzfOpts}
 
-      function cd {
-        command cd "$@"
-        PS1=$(
-          if [[ "''${PWD#$HOME}" != "$PWD" ]]; then
-            print -n "\e[1;34m~''${PWD#$HOME}"
-          else
-            print -n "\e[1;34m$PWD"
+  # Git-aware cd function
+  cd() {
+      local target="$1"
+      local parent
+      local top
+
+      if [ "$target" = ":/" ]; then
+          if top=$(git rev-parse --show-cdup 2>/dev/null); then
+              [ -n "$top" ] && builtin cd "$top"
           fi
-          print -n " \e[1;32m$ \e[0m"
-        )
-      }
+      elif [ -f "$target" ] && [ -e "$target" ]; then
+          parent=$(dirname "$target")
+          if [ "$parent" != "." ] && [ -d "$parent" ]; then
+              builtin cd "$parent"
+          fi
+      elif [ -d "$target" ]; then
+          builtin cd "$target"
+      else
+          builtin cd
+      fi
 
-      function cdd {
-        local dir=$(fd -H -t d -a | fzf)
+      if git rev-parse --git-dir >/dev/null 2>&1; then
+          local repo
+          repo=$(basename "$(git rev-parse --show-toplevel)")
+          if [ -z "$LAST_REPO" ] || [ "$LAST_REPO" != "$repo" ]; then
+              onefetch
+              export LAST_REPO="$repo"
+          fi
+      fi
+  }
 
-        if [ -n "$dir" ]; then
-          cd "$dir"
-        fi
-      }
+  # Fuzzy directory changer
+  cdd() {
+      local dir
+      dir=$(fd -H -t d -a | fzf)
+      [ -n "$dir" ] && cd "$dir"
+  }
 
-      # set -o vi 
-      cd "$PWD"
+  # Go up n directories (default 1)
+  ..() {
+      local n=1
+      local i
+      [ -n "$1" ] && n="$1"
+      for i in $(seq 1 "$n"); do
+          cd ..
+      done
+  }
+
+  cd "$PWD"
+
     '';
   };
 }
