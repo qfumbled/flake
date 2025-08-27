@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{ 
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   services.flatpak = {

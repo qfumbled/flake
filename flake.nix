@@ -30,26 +30,24 @@
         systemConfig,
         userConfigs,
         username ? "wug",
-        lib ? mkLib packages.${system},
-        zone ? "America/New_York"
+        lib ? mkLib packages.${system}
       }: let
         pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
       in
         nixpkgs.lib.nixosSystem {
           inherit system pkgs;
 
-          specialArgs = { inherit inputs self lib username zone; };
+          specialArgs = { inherit inputs self lib username; };
 
           modules = [
             { nixpkgs.hostPlatform = system; }
             systemConfig
             ./modules/nixos
             {
-
               home-manager.sharedModules = [ ./modules/home ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs self lib username zone; };
+              home-manager.extraSpecialArgs = { inherit inputs self lib username; };
               home-manager.users.${username}.imports = [ userConfigs ];
             }
           ];
