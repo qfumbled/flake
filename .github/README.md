@@ -6,8 +6,4 @@
 - editor: [nixvim](https://github.com/qfumbled/nixvim)
 - shell: mksh
 ## Notes
-
-- try to replace stylix (nixOS module) w/stylix + home-manager module (most of the time it whines)
-- you can now replace your timezone in flake.nix
-- you can replace your username in flake.nix
-- replace labwc or not? testing this.
+- refactor this configuration a lot will change i still have school so it will take a long time
