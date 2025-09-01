@@ -7,18 +7,12 @@
 
 let
   cfg = config.meadow.default.wm == "labwc";
-
   inherit (lib) mkIf;
   _ = lib.getExe;
 
   ocrScript =
     let
-      inherit (pkgs)
-        grim
-        libnotify
-        slurp
-        tesseract5
-        wl-clipboard;
+      inherit (pkgs) grim libnotify slurp tesseract5 wl-clipboard;
     in
     pkgs.writeShellScriptBin "wl-ocr" ''
       ${_ grim} -g "$(${_ slurp})" -t ppm - | ${_ tesseract5} - - | ${wl-clipboard}/bin/wl-copy
@@ -134,4 +128,3 @@ in
     };
   };
 }
-
