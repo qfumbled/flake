@@ -12,7 +12,7 @@ in
     theme = {
       stylix = {
         polarity = lib.mkOption {
-          default = "light";
+          default = "dark";
           type = lib.types.enum [
             "dark"
             "light"
@@ -25,6 +25,7 @@ in
             "paradise"
             "grayscale"
             "test"
+            "gruvbox"
           ];
         };
       };
@@ -36,7 +37,7 @@ in
       enable = true;
 
       # Placeholder (literally doesn't matter)
-      image = ../../../home/shared/wallpapers/test.png;
+      image = ../../../home/shared/wallpapers/test2.jpg;
 
       base16Scheme = ./themes/${cfg.themeName}.yaml;
       polarity = cfg.polarity;

@@ -1,18 +1,18 @@
-{ config, pkgs, username, inputs, ... }:
-
-let
-  app2unit = pkgs.callPackage ../../../../packages/app2unit { };
-in
 {
-  programs.home-manager.enable = true;
-
+  inputs,
+  config,
+  pkgs,
+  username,
+  ...
+}:
+{
   home = {
+    username = "${username}";
     homeDirectory = "/home/${username}";
-    stateVersion = "23.11";
+    stateVersion = "24.11";
 
     packages = with pkgs; [
-      # inputs.zen-browser.packages.${pkgs.system}.default
-      inputs.nixvim.packages.${pkgs.system}.default
+     
       app2unit
       fastfetch
       asciinema_3
@@ -34,11 +34,8 @@ in
       gcc
       gh
       git-absorb
-      gitmoji-cli
-      glab
       glow
       gnumake
-      go
       gping
       grimblast
       gum
@@ -56,21 +53,19 @@ in
       kubectx
       kubernetes-helm
       light
-      material-symbols
       magic-wormhole
-      mods
+      material-symbols
       nemo
       networkmanagerapplet
       nh
       nix-fast-build
       nix-inspect
       nix-output-monitor
+      nix-search-tv
       nix-update
       nixfmt-rfc-style
       onefetch
       openssl
-      openvpn
-      opencode
       opkssh
       pavucontrol
       pfetch
@@ -80,13 +75,12 @@ in
       pre-commit
       presenterm
       python312Packages.gst-python
+      python312Packages.materialyoucolor
+      python312Packages.pillow
       python312Packages.pip
       python312Packages.pygobject3
       python312Packages.setuptools
       python312Packages.virtualenv
-      python312Packages.materialyoucolor
-      python312Packages.pillow
-      rustup
       satty
       slides
       sops
@@ -94,16 +88,14 @@ in
       stern
       syncthing
       television
-      nix-search-tv
       tldr
-      update-nix-fetchgit
+      up
       vegeta
-      vial
+      viddy
       vlc
       wireplumber
       xdotool
       xwayland
-      nerd-fonts.iosevka
     ];
   };
 }

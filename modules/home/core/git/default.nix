@@ -1,99 +1,95 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.gh ];
-
-  # enable scrolling in git diff
-  home.sessionVariables.DELTA_PAGER = "less -R";
-
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    userName = "wugeiticus";
-    userEmail = "qfumbled@proton.me";
-
-    delta = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  programs = {
+    git = {
       enable = true;
-      options = {
-        navigate = true;
-        side-by-side = true;
-        true-color = "never";
+      userEmail = "rs.wug@proton.me";
+      userName = "wug";
 
-        features = "unobtrusive-line-numbers decorations";
-        unobtrusive-line-numbers = {
-          line-numbers = true;
-          line-numbers-left-format = "{nm:>4}│";
-          line-numbers-right-format = "{np:>4}│";
-          line-numbers-left-style = "grey";
-          line-numbers-right-style = "grey";
+      ignores = [
+        "*.log"
+        ".envrc"
+        "shell.nix"
+      ];
+
+      extraConfig = {
+        commit.gpgsign = false;
+        core = {
+          editor = "nvim";
+          excludesfile = "~/.config/git/ignore";
+          pager = "${lib.getExe pkgs.diff-so-fancy}";
         };
-        decorations = {
-          commit-decoration-style = "bold grey box ul";
-          file-style = "bold blue";
-          file-decoration-style = "ul";
-          hunk-header-decoration-style = "box";
+        pager = {
+          diff = "${lib.getExe pkgs.diff-so-fancy}";
+          log = "delta";
+          reflog = "delta";
+          show = "delta";
+        };
+
+        credential = {
+          helper = "store";
+        };
+
+        push = {
+          autoSetupRemote = true;
+        };
+
+        rerere.enable = true;
+
+        color = {
+          ui = true;
+          pager = true;
+          diff = "auto";
+          branch = {
+            current = "green bold";
+            local = "yellow dim";
+            remove = "blue";
+          };
+
+          showBranch = "auto";
+          interactive = "auto";
+          grep = "auto";
+          status = {
+            added = "green";
+            changed = "yellow";
+            untracked = "red dim";
+            branch = "cyan";
+            header = "dim white";
+            nobranch = "white";
+          };
         };
       };
-    };
 
-    # Use nested attribute sets for extraConfig
-    extraConfig = {
-      commit = {
-        gpgsign = false;  # disable commit signing
-      };
-      user = {
-        signingkey = "";
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      diff = {
-        colorMoved = "default";
-      };
-      merge = {
-        conflictstyle = "diff3";
-        stat = "true";
-      };
-      push = {
-        autoSetupRemote = true;
-        default = "current";
-      };
-      core = {
-        editor = "nvim";  # use Neovim as editor
-        whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-      };
-      repack = {
-        usedeltabaseoffset = "true";
-      };
-      pull = {
-        ff = "only";
-      };
-      rebase = {
-        autoSquash = true;
-        autoStash = true;
-      };
-      rerere = {
-        enabled = true;
-        autoupdate = true;
+      aliases = {
+        st = "status ";
+        ci = "commit ";
+        br = "branch ";
+        co = "checkout ";
+        df = "diff ";
+        dc = "diff - -cached ";
+        lg = "log - p ";
+        pr = "pull - -rebase ";
+        p = "push ";
+        ppr = "push - -set-upstream origin ";
+        lol = "log - -graph - -decorate - -pretty=oneline --abbrev-commit";
+        lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+        latest = "for-each-ref --sort=-taggerdate --format='%(refname:short)' --count=1";
+        undo = "git reset --soft HEAD^";
+        brd = "branch -D";
       };
     };
 
-    aliases = {
-      co = "checkout";
-      fu = "commit --amend -m";
-      ca = "commit -am";
-      d = "diff";
-      ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
-      pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
-      af = "!git add $(git ls-files -m -o --exclude-standard | fzf -m)";
-      st = "status";
-      br = "branch";
-      df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}";
-      hist = ''
-        log --pretty=format:"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)" --graph --date=relative --decorate --all'';
-      llog = ''
-        log --graph --name-status --pretty=format:"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset" --date=relative'';
-      edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; hx `f`";
-    };
+    zsh.initContent = ''
+      # why?
+    '';
 
-    ignores = ["*~" "*.swp" "*result*" ".direnv" "node_modules" ".log" ".envrc" "shell.nix"];
+    fish.interactiveShellInit = ''
+    # why?
+    '';
   };
 }
+

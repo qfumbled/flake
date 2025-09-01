@@ -16,9 +16,18 @@ in
   };
 
   config = {
+    system.activationScripts.diff = {
+      text = ''
+        if [[ -e /run/current-system ]]; then
+          echo "=== diff to current-system ==="
+          ${lib.getExe pkgs.lix-diff} --lix-bin ${config.nix.package}/bin /run/current-system "$systemConfig"
+          echo "=== end of the system diff ==="
+        fi
+      '';
+    };
     environment.systemPackages = with pkgs; [
-      sops
       dconf
+
       age
       bat
       blueman

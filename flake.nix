@@ -5,17 +5,7 @@
     {
       self,
       nixpkgs,
-      nur,
-      firefox-addons,
-      flake-utils,
-      flake-parts,
       hm,
-      impermanence,
-      nix-flatpak,
-      stylix,
-      spicetify-nix,
-      nixvim,
-      pre-commit-hooks,
       ...
     }@inputs:
     let
@@ -42,6 +32,7 @@
           modules = [
             { nixpkgs.hostPlatform = system; }
             systemConfig
+            hm.nixosModules.home-manager
             ./modules/nixos
             {
               home-manager.sharedModules = [ ./modules/home ];
@@ -81,15 +72,15 @@
 
     in {
       nixosConfigurations = {
-        magnus = mkSystem {
-          systemConfig = ./hosts/magnus;
-          userConfigs = ./home/profiles/magnus.nix;
+        grovetender = mkSystem {
+          systemConfig = ./hosts/grovetender;
+          userConfigs = ./home/profiles/grovetender.nix;
           username = "wug";
         };
 
         akatosh = mkSystem {
-          systemConfig = ./hosts/akatosh;
-          userConfigs = ./home/profiles/akatosh.nix;
+          systemConfig = ./hosts/aurelionite;
+          userConfigs = ./home/profiles/aurelionite.nix;
           username = "wug";
         };
       };
@@ -132,9 +123,9 @@
 
     stylix = {
       url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    spicetify-nix = {
+     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -143,9 +134,14 @@
       url = "github:nix-community/NUR";
     };
 
-    nixvim = {
-      url = "github:qfumbled/nixvim";
-    };
+   # nixvim = {
+    #  url = "github:qfumbled/nixvim";
+    #};
+    
+    neovim = {
+    url = "github:elythh/nvim";
+    inputs.nixpkgs.follows = "nixpkgs";
+   };
 
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";

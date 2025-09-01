@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.writeShellScriptBin "screenshot" ''
   SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
   mkdir -p "$SCREENSHOT_DIR"
@@ -14,6 +14,9 @@ pkgs.writeShellScriptBin "screenshot" ''
     "s")
       ${pkgs.wayshot}/bin/wayshot -s "$(${pkgs.slurp}/bin/slurp)" -f $TMP_SCREENSHOT
     ;;
+    "a")
+      ${pkgs.grimblast}/bin/grimblast save area $TMP_SCREENSHOT
+    ;;
     *)
       exit
     ;;
@@ -25,7 +28,7 @@ pkgs.writeShellScriptBin "screenshot" ''
     exit
   fi
 
-  ACTION=$(${pkgs.libnotify}/bin/notify-send "Screenshot" "Screenshot copied to clipboard." -A "save=Save" -i "$TMP_SCREENSHOT")
+  ACTION=$(${pkgs.libnotify}/bin/notify-send "Screenshot" "Screenshot copied to clipboard." -i "multimedia-photo-viewer-symbolic" -A "save=Save")
 
   case "$ACTION" in
     "save")
@@ -36,7 +39,7 @@ pkgs.writeShellScriptBin "screenshot" ''
       ${pkgs.swappy}/bin/swappy -f $TMP_SCREENSHOT
 
       if [ -f "$SAVED_IMAGE" ]; then
-        ${pkgs.libnotify}/bin/notify-send "Screenshot Saved" "Screenshot saved successfully."
+        ${pkgs.libnotify}/bin/notify-send "Image Saved" "Image saved successfully." -i "multimedia-photo-viewer-symbolic"
         rm "$TMP_SCREENSHOT"
       fi
     ;;

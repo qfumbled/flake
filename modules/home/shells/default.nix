@@ -6,7 +6,6 @@
       lib.types.enum [
         "zsh"
         "fish"
-        "mksh"
         "nushell"
       ]
     );
