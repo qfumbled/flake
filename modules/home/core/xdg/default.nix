@@ -1,4 +1,5 @@
-{ config,
+{
+  config,
   pkgs,
   ...
 }:
@@ -81,17 +82,6 @@ in
       createDirectories = true;
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-      };
-    };
-
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
-      config = {
-        labwc = {
-          default = [ "wlr" "*" ];
-          "org.freedesktop.impl.portal.Inhibit" = [ "none" ];
-        };
       };
     };
   };

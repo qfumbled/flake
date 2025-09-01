@@ -8,6 +8,7 @@
 let
   screenshot = import ../scripts/screenshot.nix pkgs;
   lock = import ../scripts/waylock.nix { inherit pkgs config; };
+  terminal = config.home.sessionVariables.TERMINAL;
 in
 {
   home.file.".config/labwc/rc.xml".text = ''
@@ -28,7 +29,7 @@ in
 
         <!-- Terminal -->
         <keybind key="W-Return">
-          <action name="Execute" command="foot" />
+          <action name="Execute" command="${terminal}" />
         </keybind>
 
         <!-- Apps -->

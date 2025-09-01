@@ -1,19 +1,24 @@
-{ config, pkgs, lib, ... }:
+{ 
+  config,
+  pkgs,
+  lib,
+  ... 
+}:
 
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.meadow.services.fuzzel;
 
   colors = config.lib.stylix.colors.withHashtag;
-  mkF = pkgs.lib.mkForce; # always use pkgs.lib.mkForce
+  mkF = pkgs.lib.mkForce;  # always use pkgs.lib.mkForce
 in
 {
   options.meadow.services.fuzzel.enable = mkEnableOption "fuzzel";
 
   config = mkIf cfg.enable {
     programs.fuzzel = {
-      enable = true; # keep as plain boolean
-      settings = mkF { # force the settings map
+      enable = true;  # keep as plain boolean
+      settings = mkF {  # force the settings map
         main = {
           font           = "Rubik:size=10";
           horizontal-pad = 18;
@@ -28,7 +33,7 @@ in
           radius = 0;
           width  = 2;
         };
-        colors = mkF { # force the colors map
+        colors = mkF {  # force the colors map
           background        = "${colors.base00}ff";
           text              = "${colors.base05}ff";
           selection-text    = "${colors.base05}ff";

@@ -1,6 +1,5 @@
+{ lib, ... }:
+
 {
-  imports = [
-    ./stylix.nix
-    ./gtk.nix
-  ];
+  imports = lib.meadow.readSubfiles ./. [ "default.nix" ];
 }
