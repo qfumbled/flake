@@ -6,7 +6,7 @@
 
     config = {
       common.default = [ "wlr" ];
-      wlr.default = [ "wlr" ]; # since niri doesn't have it own portal
+      wlr.default = [ "wlr" ]; # labwc
     };
 
     extraPortals = [
