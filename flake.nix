@@ -78,7 +78,7 @@
           username = "wug";
         };
 
-        akatosh = mkSystem {
+        aurelionite = mkSystem {
           systemConfig = ./hosts/aurelionite;
           userConfigs = ./home/profiles/aurelionite.nix;
           username = "wug";
