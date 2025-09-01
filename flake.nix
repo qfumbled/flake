@@ -134,13 +134,9 @@
       url = "github:nix-community/NUR";
     };
 
-   # nixvim = {
-    #  url = "github:qfumbled/nixvim";
-    #};
-    
-    neovim = {
+   neovim = {
     url = "github:elythh/nvim";
-    inputs.nixpkgs.follows = "nixpkgs";
+     inputs.nixpkgs.follows = "nixpkgs";
    };
 
     pre-commit-hooks = {
