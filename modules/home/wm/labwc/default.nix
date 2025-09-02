@@ -83,7 +83,7 @@ let
     '';
 in
 {
-  imports = [
+ imports = [
     ./config
   ];
 
@@ -109,7 +109,6 @@ in
       wlprop
       swaybg
       xorg.xprop
-
       ocrScript
       volumectl
       lightctl
@@ -125,6 +124,16 @@ in
       XDG_SESSION_TYPE = "wayland";
       MOZ_ENABLE_WAYLAND = "1";
       QT_STYLE_OVERRIDE = lib.mkForce "kvantum";
+    };
+  };
+  systemd.user.targets.tray = mkIf cfg {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
     };
   };
 }
