@@ -24,6 +24,7 @@
       waybar.enable = true;
       fuzzel.enable = true;
       mako.enable = true;
+      swaync.enable = false;
     };
 
     default = {
