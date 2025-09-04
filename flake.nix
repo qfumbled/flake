@@ -134,6 +134,10 @@
       url = "github:nix-community/NUR";
     };
 
+    vicinae = {
+    url = "github:vicinaehq/vicinae"
+   };
+     
    neovim = {
     url = "github:elythh/nvim";
      inputs.nixpkgs.follows = "nixpkgs";
