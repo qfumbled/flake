@@ -139,7 +139,7 @@
    };
      
    neovim = {
-    url = "github:elythh/nvim";
+     url = "github:qfumbled/nvim";
      inputs.nixpkgs.follows = "nixpkgs";
    };
 
