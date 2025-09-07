@@ -1,0 +1,42 @@
+{
+ lib,
+ pkgs,
+ config,
+ ...
+ }:
+let
+  inherit (lib) mkEnableOption mkIf;
+in {
+  options.meadow.services.pipewire.enable =
+    mkEnableOption "pipewire and wireplumber";
+
+  config.services.pipewire = mkIf config.meadow.services.pipewire.enable {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    pulse.enable = true;
+
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.writeTextDir "share/bluetooth.lua.d/51-bluez-config.lua" ''
+          bluez_monitor.properties = {
+            ["bluez5.enable-sbc-xq"] = true,
+            ["bluez5.enable-msbc"] = true,
+            ["bluez5.enable-hw-volume"] = true,
+            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]",
+            ["bluez5.a2dp.ldac.quality"] = "auto",
+            ["bluez5.a2dp.aac.bitratemode"] = 0,
+            ["bluez5.default.rate"] = 48000,
+            ["bluez5.default.channels"] = 2,
+            ["bluez5.headset-profile"] = "a2dp-only", # force A2DP for better quality
+          }
+        '')
+      ];
+      extraConfig."wireplumber.profiles".main."monitor.libcamera" = "disabled";
+    };
+  };
+
+  # hardware.pulseaudio.enable = lib.mkForce false; # if you want to force-disable PA
+}

@@ -25,7 +25,6 @@
       fuzzel.enable = true;
       mako.enable = true;
       swaync.enable = false;      
-      vicinae.enable = false;
     };
 
     default = {
