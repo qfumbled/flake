@@ -1,14 +1,18 @@
 {
   services = {
     logind = {
-      powerKey = "suspend";
-      lidSwitch = "suspend";
-      lidSwitchExternalPower = "lock";
+      settings = {
+        Login = {
+          HandlePowerKey = "suspend";
+          HandleLidSwitch = "suspend";
+          HandleLidSwitchExternalPower = "lock";
+        };
+      };
     };
 
+    # Enable power profiles daemon
     power-profiles-daemon.enable = true;
 
-    # battery info
     upower = {
       enable = true;
       percentageLow = 15;

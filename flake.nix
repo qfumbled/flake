@@ -1,6 +1,135 @@
 {
   description = "Wug's NixOS System";
 
+  outputs = {
+    self,
+    nixpkgs,
+    hm,
+    ...
+  } @inputs:
+  let
+    packages = nixpkgs.legacyPackages;
+
+    mkLib = pkgs:
+      pkgs.lib.extend (final: prev:
+        (import ./lib final pkgs) // hm.lib
+      );
+
+    mkSystem =
+      {
+        system ? "x86_64-linux",
+        systemConfig,
+        userConfigs,
+        username ? "wug",
+        lib ? mkLib packages.${system}
+      }:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in
+      nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit self lib username inputs;
+        };
+
+        modules = [
+          { nixpkgs.hostPlatform = system; }
+
+          systemConfig
+
+          hm.nixosModules.home-manager
+  #       inputs.impermanence.nixosModules.impermanence
+  #       inputs.nix-flatpak.nixosModules.nix-flatpak
+          inputs.stylix.nixosModules.stylix
+  #       inputs.chaotic.nixosModules.default
+          (import ./system {
+            inherit pkgs lib username;
+          })
+
+          {
+            home-manager = {
+              sharedModules = [ ./modules/home ];
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {
+                inherit self lib username inputs;
+              };
+              users.${username}.imports = [ userConfigs ];
+            };
+          }
+        ];
+      };
+
+    supportedSystems = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+    checks = forAllSystems (system:
+      let
+        preCommit = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            deadnix.enable = true;
+            nixfmt-rfc-style.enable = true;
+          };
+        };
+      in {
+        pre-commit-check = preCommit;
+      });
+
+    devShells = forAllSystems (system:
+      let
+        check = checks.${system}.pre-commit-check;
+      in {
+        default = packages.${system}.mkShell {
+          shellHook = check.shellHook;
+          buildInputs = check.enabledPackages;
+        };
+      });
+  in
+  {
+    nixosConfigurations = {
+      grovetender = mkSystem {
+        systemConfig = ./hosts/grovetender;
+        userConfigs = ./home/profiles/grovetender.nix;
+        username = "wug";
+      };
+
+      aurelionite = mkSystem {
+        systemConfig = ./hosts/aurelionite;
+        userConfigs = ./home/profiles/aurelionite.nix;
+        username = "wug";
+      };
+    };
+
+    formatter.x86_64-linux = packages.x86_64-linux.nixfmt-rfc-style;
+    devShells = devShells;
+    checks = checks;
+
+    flake-parts = inputs.flake-parts.lib.mkFlake {
+      inherit inputs;
+    } {
+      systems = [ "x86_64-linux" ];
+      imports = [
+        ./home/profiles
+        ./hosts
+      ];
+      perSystem = {
+        config,
+        pkgs,
+        ...
+      }: {};
+    };
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -23,7 +152,6 @@
     };
 
     nur.url = "github:nix-community/NUR";
-    vicinae.url = "github:vicinaehq/vicinae";
 
     neovim = {
       url = "github:qfumbled/nvim";
@@ -63,113 +191,5 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
-  };
-
-  outputs = { self, nixpkgs, hm, ... }@inputs:
-  let
-    packages = nixpkgs.legacyPackages;
-
-    mkLib = pkgs:
-      pkgs.lib.extend (final: prev:
-        (import ./lib final pkgs) // hm.lib
-      );
-
-    mkSystem =
-      { system ? "x86_64-linux"
-      , systemConfig
-      , userConfigs
-      , username ? "wug"
-      , lib ? mkLib packages.${system}
-      }:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      in
-      nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = { inherit self lib username inputs; };
-
-        modules = [
-          { nixpkgs.hostPlatform = system; }
-
-          systemConfig
-
-           hm.nixosModules.home-manager
- #         inputs.impermanence.nixosModules.impermanence
-  #        inputs.nix-flatpak.nixosModules.nix-flatpak
-           inputs.stylix.nixosModules.stylix
-    #      inputs.chaotic.nixosModules.default
-          (import ./system { inherit pkgs lib username; })
-
-          {
-            home-manager = {
-              sharedModules = [ ./modules/home ];
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit self lib username inputs; };
-              users.${username}.imports = [ userConfigs ];
-            };
-          }
-        ];
-      };
-
-    supportedSystems = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-    checks = forAllSystems (system:
-      let
-        preCommit = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            deadnix.enable = true;
-            nixfmt-rfc-style.enable = true;
-          };
-        };
-      in {
-        pre-commit-check = preCommit;
-      });
-
-    devShells = forAllSystems (system:
-      let check = checks.${system}.pre-commit-check;
-      in {
-        default = packages.${system}.mkShell {
-          shellHook = check.shellHook;
-          buildInputs = check.enabledPackages;
-        };
-      });
-  in
-  {
-    nixosConfigurations = {
-      grovetender = mkSystem {
-     # fix   systemConfig = ./hosts;
-        systemConfig = ./hosts/grovetender;
-        userConfigs = ./home/profiles/grovetender.nix;
-        username = "wug";
-      };
-
-      aurelionite = mkSystem {
-        systemConfig = ./hosts/aurelionite;
-        userConfigs = ./home/profiles/aurelionite.nix;
-        username = "wug";
-      };
-    };
-
-    formatter.x86_64-linux = packages.x86_64-linux.nixfmt-rfc-style;
-    devShells = devShells;
-    checks = checks;
-
-    flake-parts = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
-      imports = [ ./home/profiles ./hosts ];
-      perSystem = { config, pkgs, ... }: {};
-    };
   };
 }
