@@ -46,6 +46,7 @@ in
 
     environment.systemPackages = with pkgs; [
       dconf
+      freshfetch
       bat
       blueman
       btop

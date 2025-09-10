@@ -153,11 +153,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    neovim = {
-      url = "github:qfumbled/nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
