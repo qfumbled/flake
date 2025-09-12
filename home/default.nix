@@ -36,6 +36,7 @@
       rnote
       typst
       blueman
+      onefetch
     ];
     sessionVariables = {
       EDITOR = "nvim";
