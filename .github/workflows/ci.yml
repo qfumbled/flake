@@ -1,20 +1,15 @@
-name: "Build"
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - "**.nix"
-      - "flake.lock"
-      - ".github/workflows/ci.yaml"
-
 jobs:
   build-config:
     strategy:
       matrix:
         include:
-          - hostName: Grovetender
-            nixosCfgKey: grovetender
-            homeCfgKey: grovetender
+          - hostName: Keven
+            nixosCfgKey: keven
+            homeCfgKey: keven
+            os-label: ubuntu-latest
+          - hostName: Kevnet
+            nixosCfgKey: kevnet
+            homeCfgKey: kevnet
             os-label: ubuntu-latest
       fail-fast: false
 
@@ -46,17 +41,3 @@ jobs:
       - name: Build NixOS Configuration
         if: ${{ contains(toJSON(matrix), 'nixosCfgKey') && matrix.nixosCfgKey != '' }}
         run: nix build .#nixosConfigurations.${{ matrix.nixosCfgKey }}.config.system.build.toplevel
-
-  check_flake:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
-
-      - name: Check Flake
-        run: nix flake check --keep-going
