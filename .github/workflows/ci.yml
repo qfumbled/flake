@@ -1,3 +1,13 @@
+name: "Build"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "**.nix"
+      - "flake.lock"
+      - ".github/workflows/ci.yaml"
+
 jobs:
   build-config:
     strategy:
@@ -15,6 +25,7 @@ jobs:
 
     name: Build ${{ matrix.hostName }}
     runs-on: ${{ matrix.os-label }}
+
     steps:
       - name: Free diskspace
         uses: easimon/maximize-build-space@master
@@ -44,6 +55,7 @@ jobs:
 
   check_flake:
     runs-on: ubuntu-24.04
+    needs: build-config  # optional, runs after all matrix builds
     steps:
       - name: Checkout
         uses: actions/checkout@v4
