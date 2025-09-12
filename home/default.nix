@@ -1,0 +1,45 @@
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    ./modules
+  ];
+
+  programs = {
+    home-manager.enable = true;
+    btop.enable = true;
+    zathura.enable = true;
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = _: true;
+  };
+
+  home = {
+    username = "wug";
+    homeDirectory = "/home/wug";
+
+    # NOTE: Do not change
+    stateVersion = "23.11";
+
+    packages = with pkgs; [
+      nemo-with-extensions
+      swayimg
+      mpv
+      htop
+      obsidian
+      pavucontrol
+      obs-studio
+      rnote
+      typst
+      blueman
+    ];
+    sessionVariables = {
+      EDITOR = "nvim";
+      TERMINAL = "foot";
+    };
+  };
+}
