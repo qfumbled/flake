@@ -4,6 +4,7 @@
     ./foot
     ./git
     ./gui
+    ./niri
     ./mksh
     ./stylix
     ./tmux
@@ -11,6 +12,8 @@
     ./xdg
     ./yazi
     ./spicetify
+    ./ags
+    ./anyrun
     ./editor/helix
   ];
 }

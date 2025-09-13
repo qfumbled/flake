@@ -7,6 +7,7 @@
     stylix,
     home-manager,
     pre-commit-hooks,
+    nix-flatpak,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -18,7 +19,8 @@
       nixpkgs.lib.nixosSystem {
         modules =
           [
-            ./hosts/${hname}/configuration.nix
+            ./hosts/${hname}/default.nix
+            nix-flatpak.nixosModules.nix-flatpak
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             {
@@ -77,7 +79,10 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-
+     anyrun.url = "github:anyrun-org/anyrun";
+     ags.url = "github:Aylur/ags";
+nix-flatpak.url = "github:gmodena/nix-flatpak/";
+          niri.url = "github:sodiboo/niri-flake";
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
