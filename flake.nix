@@ -103,6 +103,11 @@ nix-flatpak.url = "github:gmodena/nix-flatpak/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+   zen-browser = {
+      url = "github:pfaj/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";

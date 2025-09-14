@@ -560,7 +560,8 @@
         "nixpkgs": "nixpkgs_4",
         "pre-commit-hooks": "pre-commit-hooks",
         "spicetify-nix": "spicetify-nix",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "zen-browser": "zen-browser"
       }
     },
     "spicetify-nix": {
@@ -774,6 +775,26 @@
       "original": {
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1757272611,
+        "narHash": "sha256-AsHuZ+SxvtrNO7PFG7R0N1tBIIe3h/q1GOg312SB8sM=",
+        "owner": "pfaj",
+        "repo": "zen-browser-flake",
+        "rev": "8becdd1ab13e00c4d94960d6fa8a6f732b75fbd7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pfaj",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

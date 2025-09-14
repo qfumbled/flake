@@ -6,12 +6,12 @@
 {
   options = {
     wallpaper = lib.mkOption {
-      default = ../wallpapers/aesthetic.png;
+      default = ../wallpapers/wallhaven-r7mqk7.jpg;
       type = lib.types.path;
     };
   };
 
   config = {
-    wallpaper = ../wallpapers/aesthetic.png;
+    wallpaper = ../wallpapers/wallhaven-r7mqk7.jpg;
   };
 }

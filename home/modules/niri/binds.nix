@@ -1,152 +1,40 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }: {
   programs.niri.settings.binds = with config.lib.niri.actions; let
+    set-volume = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@";
+    brillo = spawn "${pkgs.brillo}/bin/brillo" "-q" "-u" "300000";
     playerctl = spawn "${pkgs.playerctl}/bin/playerctl";
   in {
+    "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+    "XF86AudioMicMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+
     "XF86AudioPlay".action = playerctl "play-pause";
     "XF86AudioStop".action = playerctl "pause";
     "XF86AudioPrev".action = playerctl "previous";
     "XF86AudioNext".action = playerctl "next";
 
-    "XF86AudioMute" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "audio"
-        "mute"
-      ];
-    };
-    "XF86AudioMicMute" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "audio"
-        "micmute"
-      ];
-    };
-
-    "XF86AudioRaiseVolume" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "audio"
-        "increment"
-        "5"
-      ];
-    };
-    "XF86AudioLowerVolume" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "audio"
-        "decrement"
-        "5"
-      ];
-    };
-
-    "XF86MonBrightnessUp" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "brightness"
-        "increment"
-        "5"
-        "amdgpu_bl1"
-      ];
-    };
-
-    "XF86MonBrightnessDown" = {
-      allow-when-locked = true;
-      action.spawn = [
-        "qs"
-        "-c"
-        "DankMaterialShell"
-        "ipc"
-        "call"
-        "brightness"
-        "decrement"
-        "5"
-        "amdgpu_bl1"
-      ];
-    };
-
-    "Ctrl+Alt+L".action = spawn [
-      "qs"
-      "-c"
-      "DankMaterialShell"
-      "ipc"
-      "call"
-      "lock"
-      "lock"
-    ];
-
-    "Mod+V".action = spawn [
-      "qs"
-      "-c"
-      "DankMaterialShell"
-      "ipc"
-      "call"
-      "clipboard"
-      "toggle"
-    ];
-
-    "Mod+U".action = spawn [
-      "qs"
-      "-c"
-      "DankMaterialShell"
-      "ipc"
-      "call"
-      "settings"
-      "toggle"
-    ];
-
-    "Mod+M".action = spawn [
-      "qs"
-      "-c"
-      "DankMaterialShell"
-      "ipc"
-      "call"
-      "processlist"
-      "toggle"
-    ];
-
+    "XF86AudioRaiseVolume".action = set-volume "5%+";
+    "XF86AudioLowerVolume".action = set-volume "5%-";
+ 
+    "XF86MonBrightnessUp".action = spawn "${pkgs.brightnessctl}/bin/brightnessctl set +5%";
+    "XF86MonBrightnessDown".action = spawn "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
+    
     "Print".action.screenshot-screen = {write-to-disk = true;};
     "Mod+Shift+Alt+S".action = screenshot-window;
-    "Mod+Shift+S".action.screenshot = {show-pointer = false;};
+    "Mod+Shift+S".action = screenshot;
     "Mod+D".action = spawn "${pkgs.anyrun}/bin/anyrun";
     "Mod+Return".action = spawn "${pkgs.foot}/bin/foot";
+    "Ctrl+Alt+L".action = spawn "sh -c pgrep hyprlock || hyprlock";
+
+    "Mod+U".action = spawn "${pkgs.gnome-control-center}/bin/gnome-control-center";
 
     "Mod+Q".action = close-window;
     "Mod+S".action = switch-preset-column-width;
     "Mod+F".action = maximize-column;
-
-    "Mod+1".action = set-column-width "25%";
-    "Mod+2".action = set-column-width "50%";
-    "Mod+3".action = set-column-width "75%";
-    "Mod+4".action = set-column-width "100%";
     # "Mod+Shift+F".action = fullscreen-window;
     "Mod+Shift+F".action = expand-column-to-available-width;
     "Mod+Space".action = toggle-window-floating;
@@ -154,7 +42,7 @@
 
     "Mod+Comma".action = consume-window-into-column;
     "Mod+Period".action = expel-window-from-column;
-    "Mod+C".action = center-visible-columns;
+    "Mod+C".action = center-window;
     "Mod+Tab".action = switch-focus-between-floating-and-tiling;
 
     "Mod+Minus".action = set-column-width "-10%";

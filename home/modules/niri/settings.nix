@@ -23,11 +23,9 @@ in {
         SDL_VIDEODRIVER = "wayland";
       };
       spawn-at-startup = [
-        (makeCommand "hyprlock")
-        (makeCommand "swww-daemon")
+        { command = ["swaybg" "-i" (toString config.wallpaper) "-m" "fill"]; }
         {command = ["wl-paste" "--watch" "cliphist" "store"];}
         {command = ["wl-paste" "--type text" "--watch" "cliphist" "store"];}
-        {command = ["qs" "-c" "DankMaterialShell"];}
       ];
       input = {
         keyboard.xkb.layout = "us";

@@ -1,6 +1,7 @@
 {
   imports = [
-    ./firefox
+    ./zen
+#    ./obs
     ./foot
     ./git
     ./gui
