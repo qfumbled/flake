@@ -2,13 +2,13 @@
 
 ## Info
 
-- wm/compositor: labwc
+- wm/compositor: niri
 - editor: helix
-- shell: mksh (switch to nushell but im lazy rn)
+- shell: mksh
+- widgets: astal/ags
 ## Notes
-- do not use with function in nix because is considered bad practice
-- reduce inputs so it won't be bloated
-- don't do Excessive optional chaining without clarity
+- just make the flake lighter
+
 ## Acknowledgments
 - [elythh](https://github.com/elythh/flake) - repo started as a fork from her and for the nvim config
 - [alexpkgs](https://github.com/alexpkgs/glflake) - my old flake
