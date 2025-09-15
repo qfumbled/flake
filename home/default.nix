@@ -29,6 +29,7 @@
       nemo-with-extensions
       niri
       swayimg
+      swaybg
       mpv
       htop
       obsidian

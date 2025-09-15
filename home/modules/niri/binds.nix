@@ -26,11 +26,16 @@
     "Print".action.screenshot-screen = {write-to-disk = true;};
     "Mod+Shift+Alt+S".action = screenshot-window;
     "Mod+Shift+S".action = screenshot;
-    "Mod+D".action = spawn "${pkgs.anyrun}/bin/anyrun";
     "Mod+Return".action = spawn "${pkgs.foot}/bin/foot";
     "Ctrl+Alt+L".action = spawn "sh -c pgrep hyprlock || hyprlock";
 
-    "Mod+U".action = spawn "${pkgs.gnome-control-center}/bin/gnome-control-center";
+    "Mod+U".action = spawn ''
+     env XDG_CURRENT_DESKTOP=GNOME \
+      WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+      DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS \
+      ${pkgs.gnome-control-center}/bin/gnome-control-center
+  '';
+
 
     "Mod+Q".action = close-window;
     "Mod+S".action = switch-preset-column-width;
