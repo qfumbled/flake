@@ -1,59 +1,54 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
-
-{
-  imports = [
-    ./stylix
-    ./hardware
-    ./nix
-    ./security.nix
-    ./users.nix
-    ./boot.nix
-    ./network
-    ./flatpak.nix
-    ./portal.nix
-  ];
+{pkgs, ...}: {
+  imports = [./stylix];
 
   theme.stylix = {
-    polarity  = "light";
+    polarity = "light";
     themeName = "test";
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.networkmanager = {
-    enable          = true;
-    appendNameservers = [
-      "1.1.1.1"
-    ];
+    enable = true;
+    appendNameservers = ["1.1.1.1"];
   };
 
-  system = {
-    copySystemConfiguration = false;
-    switch.enable           = true;
-    rebuild.enableNg        = true;
-  };
+  # Sorry for being Canadian
+  time.timeZone = "America/Toronto";
 
-  time.timeZone       = "America/Toronto";
-  i18n.defaultLocale  = "en_CA.UTF-8";
+  i18n.defaultLocale = "en_CA.UTF-8";
 
   services.xserver = {
     xkb = {
-      layout  = "us";
+      layout = "us";
       variant = "";
     };
   };
 
-  security.rtkit.enable       = true;
+  hardware.graphics.enable = true;
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    wireplumber.enable = true;
+  };
+
   virtualisation.docker.enable = true;
-  nixpkgs.config.allowUnfree   = true;
+
+  users.users.wug = {
+    isNormalUser = true;
+    description = "wug";
+    extraGroups = ["networkmanager" "wheel" "video" "docker"];
+  };
+
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    experimental-features = ["nix-command" "flakes"];
   };
 
   environment.systemPackages = with pkgs; [
@@ -65,6 +60,7 @@
     wl-clipboard
     ripgrep
     freshfetch
+    pfetch
     unzip
     killall
   ];
@@ -83,17 +79,16 @@
 
     fontconfig = {
       enable = true;
-
       defaultFonts = {
-        sansSerif  = [
+        sansSerif = [
           "DejaVu Sans"
           "Noto Sans CJK"
         ];
-        serif      = [
+        serif = [
           "DejaVu Serif"
           "Noto Serif CJK"
         ];
-        monospace  = [
+        monospace = [
           "DejaVu Sans Mono"
           "Noto Sans Mono CJK"
         ];
@@ -105,27 +100,20 @@
 
   services = {
     upower.enable = true;
-    gvfs.enable   = true;
+    gvfs.enable = true;
   };
 
-  zramSwap = {
-    enable        = true;
-    algorithm     = "zstd";
-    memoryPercent = 25;
-  };
-
-  environment.shells = [
-    pkgs.mksh
-  ];
+  security.pam.services.waylock = {};
+  environment.shells = [pkgs.mksh];
+  users.defaultUserShell = pkgs.mksh;
 
   environment.sessionVariables = {
-    EDITOR                     = "nvim";
+    EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   };
 
   services.openssh = {
     enable = true;
-
     settings = {
       PasswordAuthentication = true;
     };

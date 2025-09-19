@@ -17,11 +17,11 @@ in {
           ];
         };
         themeName = lib.mkOption {
-          default = "test";
+          default = "oxocarbon";
           type = lib.types.enum [
             "oxocarbon"
             "cyberdream"
-            "aesthetic"
+            "far"
             "test"
           ];
         };
